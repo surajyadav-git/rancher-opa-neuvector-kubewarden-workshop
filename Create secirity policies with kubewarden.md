@@ -26,3 +26,10 @@ spec:
     value: debug
 ```
 
+
+
+
+
+
+
+![hpc-reference-architecture](images/hpc-reference-architecture.png)
