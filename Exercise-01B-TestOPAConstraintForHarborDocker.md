@@ -112,4 +112,7 @@ d) Pull command will be copied to clipboard. You may choose to save it to any te
 
 
 
+```
 Continue to: [Bonus Lab Exercise](https://github.com/dsohk/rancher-private-registry-workshop/blob/main/docs/BonusExercise-01.md)
+```
+
