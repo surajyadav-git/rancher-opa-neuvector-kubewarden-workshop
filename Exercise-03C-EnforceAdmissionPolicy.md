@@ -10,7 +10,7 @@ Once you have the Kubewarden instance running, it's time to deploy some policies
 
 ## 03C -1 ) Example 1: Blocking pods running as root
 
-Let's start with blocking container escalation. For that you can deploy a policy as shown below:
+Let's start with blocking pods running as root . For that you can deploy a policy as shown below:
 
 ```
 $ kubectl apply -f - <<EOF
