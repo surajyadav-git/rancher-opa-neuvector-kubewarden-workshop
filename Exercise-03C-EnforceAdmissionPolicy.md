@@ -68,7 +68,7 @@ Error from server: error when creating "STDIN": admission webhook "clusterwide-p
 
 You can see the Error states the pods cannot be deployed since the Kubewarden policy denied the request to run as root user . Let us see another example where the  parameter is set`runAsNonRoot: true`  but still denied  because the user ID is still pointing to root ie , UID 0 
 
-### 03C -2 ) Example 2: Allowing pod to use the port 443 only
+## 03C -2 ) Example 2: Allowing pod to use the port 443 only
 
 To replace the PSP configuration that blocks privileged containers, it's necessary to deploy the [pod-privileged policy](https://github.com/kubewarden/pod-privileged-policy). This policy does not require any settings. Once running, it will block privileged pods. 
 
