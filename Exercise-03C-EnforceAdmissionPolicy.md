@@ -13,7 +13,7 @@ Once you have the Kubewarden instance running, it's time to deploy some policies
 Let's start with blocking pods running as root . For that you can deploy a policy as shown below:
 
 ```
-$ kubectl apply -f - <<EOF
+kubectl apply -f - <<EOF
 apiVersion: policies.kubewarden.io/v1alpha2
 kind: ClusterAdmissionPolicy
 metadata:
@@ -46,7 +46,7 @@ EOF
 So, now users cannot deploy pods running as root:
 
 ```
-$ kubectl apply -f - <<EOF
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -75,7 +75,7 @@ To replace the PSP configuration that blocks privileged containers, it's necessa
 
 
 ```
-$ kubectl apply -f - <<EOF
+kubectl apply -f - <<EOF
 apiVersion: policies.kubewarden.io/v1alpha2
 kind: ClusterAdmissionPolicy
 metadata:
@@ -106,7 +106,7 @@ EOF
 The pod should be only able to expose the port 443 and should throw an  error when other port numbers are configured against the hostPort  section.
 
 ```
-$ kubectl apply -f - <<EOF
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
