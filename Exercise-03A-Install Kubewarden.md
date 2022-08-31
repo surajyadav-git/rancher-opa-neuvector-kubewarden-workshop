@@ -12,9 +12,11 @@ In order to create Policies we will have to install kubewarden-crds , kubewarden
 
 ### Step 3A.1 ) Installation of Cert-manager
 
-Kubewarden chart depends on cert-manager . Since it is a dependency we will have to first install cert-manager .
+Kubewarden chart depends on cert-manager . Since it is a dependency we will have to first install cert-manager . 
 
-You can install the latest version of `cert-manager` by running the following commands:
+To Install latest version of `cert-manager` click on Rancher CLI on Rancehr server UI and run below commands :
+
+
 
 ```
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/download/cert-manager.yaml
@@ -24,6 +26,10 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/downlo
 kubectl wait --for=condition=Available deployment --timeout=2m -n cert-manager --all
 ```
 
+You should see an output similar to below screen-shot , 
+
+ 
+
 ### Step 3A.2 ) Deploy Kubewarden stack 
 
 The following charts should be installed inside the `kubewarden` namespace in your Kubernetes cluster:
@@ -32,7 +38,7 @@ The following charts should be installed inside the `kubewarden` namespace in yo
 - `kubewarden-controller`, which will install the Kubewarden controller
 - `kubewarden-defaults`, which will create a `PolicyServer` resource named `default`. It can also installs a set of recommended policies to secure your cluster by enforcing some well known best practices
 
-Add kubewarden helm chart using below command ,
+Open Rancher CLI . Add kubewarden helm chart using below command ,
 
 ```console
 helm repo add kubewarden https://charts.kubewarden.io
@@ -50,7 +56,13 @@ helm install --wait -n kubewarden kubewarden-defaults kubewarden/kubewarden-defa
 
 ```
 
-Now we have deployed Kubewarden stack . In 
+You should see an output similar to below screen-shot , 
+
+
+
+
+
+Now we have deployed Kubewarden stack . 
 
 
 
