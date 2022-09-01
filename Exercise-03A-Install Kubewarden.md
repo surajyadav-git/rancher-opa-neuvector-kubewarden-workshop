@@ -1,4 +1,4 @@
-# LAB-03A - Install Kubewarden 
+# `LAB`-03A - Install Kubewarden 
 
 
 
@@ -14,19 +14,31 @@ In order to create Policies we will have to install kubewarden-crds , kubewarden
 
 Kubewarden chart depends on cert-manager . Since it is a dependency we will have to first install cert-manager . 
 
-To Install latest version of `cert-manager` click on Rancher CLI on Rancehr server UI and run below commands :
+To Install latest version of `cert-manager`, on Rancher server UI click on left most corner near Rancher logo ->Home -> rke2-cluster1 -> Kubectl icon   
+
+![](images/Screenshot from 2022-09-02 00-42-12.png)
 
 
+
+Run below commands in Kubectl shell  :
 
 ```
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/download/cert-manager.yaml
 ```
+
+You should see an output similar to below screen-shot , 
+
+![](images/Screenshot from 2022-09-02 00-46-10.png)
+
+
 
 ```
 kubectl wait --for=condition=Available deployment --timeout=2m -n cert-manager --all
 ```
 
 You should see an output similar to below screen-shot , 
+
+![](images/Screenshot from 2022-09-02 00-49-23.png)
 
  
 
@@ -38,7 +50,7 @@ The following charts should be installed inside the `kubewarden` namespace in yo
 - `kubewarden-controller`, which will install the Kubewarden controller
 - `kubewarden-defaults`, which will create a `PolicyServer` resource named `default`. It can also installs a set of recommended policies to secure your cluster by enforcing some well known best practices
 
-Open Rancher CLI . Add kubewarden helm chart using below command ,
+Open Kubectl shell . Add kubewarden helm chart using below command ,
 
 ```console
 helm repo add kubewarden https://charts.kubewarden.io
@@ -60,7 +72,7 @@ You should see an output similar to below screen-shot ,
 
 
 
-
+![](images/Screenshot from 2022-09-02 00-54-01.png)
 
 Now we have deployed Kubewarden stack . 
 
@@ -70,5 +82,5 @@ Now we have deployed Kubewarden stack .
 
 Continue to: 
 
-[Exercise-03B-Configu]: 
+[]: /home/karthick/Documents/GitHub/rancher-opa-neuvector-kubewarden-workshop/Exercise-03B-ConfigurePolicyServerandClusterAdmissionPolicy.md	"Exercise-03B-ConfigurePolicyserverandClusterAdmissionPolicy"
 
