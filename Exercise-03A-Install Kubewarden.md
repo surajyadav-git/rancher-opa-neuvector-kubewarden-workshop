@@ -16,7 +16,7 @@ Kubewarden chart depends on cert-manager . Since it is a dependency we will have
 
 To Install latest version of `cert-manager`, on Rancher server UI click on left most corner near Rancher logo ->Home -> rke2-cluster1 -> Kubectl icon   
 
-![](images/Screenshot from 2022-09-02 00-42-12.png)
+![](images/Screenshot from 2022-09-0200-42-12.png)
 
 
 
@@ -28,7 +28,7 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/downlo
 
 You should see an output similar to below screen-shot , 
 
-![](images/Screenshot from 2022-09-02 00-46-10.png)
+![](images/Screenshot2022-09-0200-46-10.png)
 
 
 
