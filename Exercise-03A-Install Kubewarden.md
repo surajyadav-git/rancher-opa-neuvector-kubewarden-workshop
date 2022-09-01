@@ -84,3 +84,4 @@ Continue to:
 
 []: /home/karthick/Documents/GitHub/rancher-opa-neuvector-kubewarden-workshop/Exercise-03B-ConfigurePolicyServerandClusterAdmissionPolicy.md	"Exercise-03B-ConfigurePolicyserverandClusterAdmissionPolicy"
 
+![](images/sumaarch.jpg)
