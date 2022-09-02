@@ -45,7 +45,21 @@ EOF
 
 Notice the policy is configured as `mutation: true`. This is required because the policy will add [supplementalGroups](https://kubernetes.io/docs/concepts/security/pod-security-policy/#users-and-groups) when the user does not define them.
 
-So, now users cannot deploy pods running as root:
+This will produce the following output:
+
+![](images/pic7.png)
+
+When a  `ClusterAdmissionPolicy` is defined, the status is set to `pending`, and it will force a rollout of the targeted `PolicyServer`. You can monitor the rollout by running the following command:
+
+```
+kubectl get clusteradmissionpolicy.policies.kubewarden.io/psp-usergroup
+```
+
+![](images/pic8.png)
+
+The `ClusterAdmissionPolicy` status will be set to active once the deployment is done for every `PolicyServer` instance. 
+
+You can test the policy now . Copy paste below section on kubectl shell . Users should not be able to deploy pods running as root:
 
 ```
 kubectl apply -f - <<EOF
@@ -70,9 +84,31 @@ Error from server: error when creating "STDIN": admission webhook "clusterwide-p
 
 You can see the Error states the pods cannot be deployed since the Kubewarden policy denied the request to run as root user . Let us see another example where the  parameter is set`runAsNonRoot: true`  but still denied  because the user ID is still pointing to root ie , UID 0 
 
+```
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 0
+EOF
+```
+
+```
+Error from server: error when creating "STDIN": admission webhook "clusterwide-psp-usergroup-fb836.kubewarden.admission" denied the request: Invalid user ID: cannot run container with root ID (0)
+```
+
+
+
 ## 03C -2 ) Example 2: Allowing pod to use the port 443 only
 
-To replace the PSP configuration that blocks privileged containers, it's necessary to deploy the [pod-privileged policy](https://github.com/kubewarden/pod-privileged-policy). This policy does not require any settings. Once running, it will block privileged pods. 
+To replace the PSP configuration that blocks privileged containers, it's necessary to deploy the [Host Namespaces PSP](https://github.com/kubewarden/host-namespaces-psp-policy). This policy does not require any settings. Once running, it will block users to use ports other than 443 and ports between 5000 - 6000 . 
 
 
 
@@ -99,13 +135,15 @@ spec:
     allow_host_ipc: false
     allow_host_pid: false
     allow_host_ports:
+      - min: 5000
+        max: 6000
       - min: 443
         max: 443
     allow_host_network: false
 EOF
 ```
 
-The pod should be only able to expose the port 443 and should throw an  error when other port numbers are configured against the hostPort  section.
+Now the policy is created and enforced . The pod should be only able to expose the ports between 5000 and 6000 and port 443 . It should throw an  error when other port numbers are configured against the hostPort  section.
 
 ```
 kubectl apply -f - <<EOF
@@ -132,3 +170,6 @@ EOF
 Error from server: error when creating "STDIN": admission webhook "clusterwide-psp-hostnamespaces.kubewarden.admission" denied the request: Pod is using unallowed host ports in containers
 ```
 
+Above example should work if 443 or a port range between 5000 to 6000 is used  . 
+
+**End of Exercise 03C .** 
