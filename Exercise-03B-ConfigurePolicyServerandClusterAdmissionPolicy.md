@@ -22,7 +22,7 @@ spec:
     value: debug
 ```
 
-Now deploy policyserver.yaml file using below command , 
+Now deploy `policyserver.yaml` file using below command , 
 
 ```
 kubectl apply -f policyserver.yaml
@@ -40,9 +40,7 @@ The `ClusterAdmissionPolicy` resource is the core of the Kubewarden stack. This 
 
 Enforcing policies is the most common operation which a Kubernetes administrator  will perform. You can declare as many policies as you want, and each  policy will target one or more specific Kubernetes resources (i.e., `pods`, `Custom Resource`). You will also specify the type of operation(s) that will be applied for the targeted resource(s). The operations available are `CREATE`, `UPDATE`, `DELETE` and `CONNECT`.
 
-
-
-Create a yaml file clusteradmissionpolicy.yaml with below content and save it . 
+Create a yaml file `clusteradmissionpolicy.yaml` with below content and save it . 
 
 ```
 apiVersion: policies.kubewarden.io/v1alpha2
