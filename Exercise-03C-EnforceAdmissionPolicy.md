@@ -1,16 +1,16 @@
 
 
-# Excercise-03C - Enforce AdmissionPolicy
+# Excercise-03C - Example ClusterAdmissionPolicies
 
+Once you have the Kubewarden instance running, it's time to deploy some policies to replace the `PodSecurityPolicy` object . Let's create our  first Kubewarden policies . For this first example, we will use the  [user-group-psp policy](https://github.com/kubewarden/user-group-psp-policy)
 
+ Our goal will be to prevent the pods running as root on our Kubernetes cluster by enforcing this policy.
 
-`AdmissionPolicy` is a namespace-wide resource. The policy will process only the requests that are targeting the Namespace where the `AdmissionPolicy` is defined. Other than that, there are no functional differences between the `AdmissionPolicy` and `ClusterAdmissionPolicy` resources. 
-
-Once you have the Kubewarden instance running, it's time to deploy some policies to replace the `PodSecurityPolicy` object . Let's create our  first Kubewarden policies 
+Let's define a `ClusterAdmissionPolicy` for that:
 
 ## 03C -1 ) Example 1: Blocking pods running as root
 
-Let's start with blocking pods running as root . For that you can deploy a policy as shown below:
+Let's start with blocking pods running as root . For that you can deploy a policy as shown below , by copy paste below policy in kubectl shell ,
 
 ```
 kubectl apply -f - <<EOF
@@ -42,6 +42,8 @@ spec:
 EOF
 
 ```
+
+Notice the policy is configured as `mutation: true`. This is required because the policy will add [supplementalGroups](https://kubernetes.io/docs/concepts/security/pod-security-policy/#users-and-groups) when the user does not define them.
 
 So, now users cannot deploy pods running as root:
 

@@ -54,7 +54,7 @@ Open Kubectl shell . Add kubewarden helm chart using below command ,
 helm repo add kubewarden https://charts.kubewarden.io
 ```
 
-Now Kubewarden stack can be deployed from above helm chart ,
+Kubewarden stack can be deployed from above helm chart . Copy paste below commands in kubectl shell ,
 
 ```
 helm install --wait -n kubewarden --create-namespace kubewarden-crds kubewarden/kubewarden-crds
@@ -66,7 +66,7 @@ helm install --wait -n kubewarden kubewarden-defaults kubewarden/kubewarden-defa
 
 ```
 
-You should see an output similar to below screen-shot , 
+Wait until you see an output similar to below screen-shot , 
 
 
 

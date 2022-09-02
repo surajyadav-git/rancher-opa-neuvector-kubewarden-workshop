@@ -2,11 +2,11 @@
 
 ### 03B - 1) configure Policy server 
 
-A Kubewarden `PolicyServer` is completely managed by the `kubewarden-controller` and multiple `PolicyServers` can be deployed in the same Kubernetes cluster.
+A Kubewarden `PolicyServer` is completely managed by the `kubewarden-controller`. Multiple `PolicyServers` can be deployed in the same Kubernetes cluster.
 
 The `PolicyServer` is the component which executes the Kubewarden policies when requests arrive and validates them. To deploy PolicyServer , on Rancher server UI click on left most corner near Rancher logo  -> Home -> rke2-cluster1 -> Kubectl icon . ![](images/Rancher(3).png)
 
-Create a yaml file policyserver.yaml with below content and save it . 
+Create a yaml file `policyserver.yaml` with below content and save it . 
 
 ```
 apiVersion: policies.kubewarden.io/v1alpha2
@@ -30,9 +30,9 @@ kubectl apply -f policyserver.yaml
 
 You should see an output similar to below screen-shot ,
 
+![](images/pic5.png)
 
-
-
+Now we have successfully deployed Policy server . 
 
 ### 03B - 2) Configure Cluster Admission Policy 
 
@@ -49,7 +49,7 @@ metadata:
   name: psp-capabilities
 spec:
   policyServer: reserved-instance-for-tenant-a
-  module: registry://ghcr.io/kubewarden/policies/psp-capabilities:v0.1.3
+  module: registry://ghcr.io/kubewarden/policies/psp-capabilities:v0.1.7
   rules:
   - apiGroups: [""]
     apiVersions: ["v1"]
@@ -65,3 +65,12 @@ spec:
     - NET_ADMIN
 ```
 
+Once deployed you should see an output similar to below screen-shot , 
+
+![](images/pic5-166212546820724.png)
+
+In this exercise we have deployed Policyserver and default ClusterAdmissionPolicy  .  
+
+**End of Exercise 03B** 
+
+Continue to: 
