@@ -19,7 +19,7 @@ kind: ClusterAdmissionPolicy
 metadata:
   name: psp-usergroup
 spec:
-  module: registry://ghcr.io/kubewarden/policies/user-group-psp:v0.2.0
+  module: registry://ghcr.io/kubewarden/policies/user-group-psp:latest
   rules:
     - apiGroups:
         - ""
