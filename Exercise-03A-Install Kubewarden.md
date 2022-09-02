@@ -14,7 +14,7 @@ In order to create Policies we will have to install kubewarden-crds , kubewarden
 
 Kubewarden chart depends on cert-manager . Since it is a dependency we will have to first install cert-manager . 
 
-To Install latest version of `cert-manager`, on Rancher server UI click on left most corner near Rancher logo ->Home -> rke2-cluster1 -> Kubectl icon   
+To Install latest version of `cert-manager`, on Rancher server UI click on left most corner near Rancher logo ->Home -> rke2-cluster1 -> Kubectl icon  ![](images/Rancher-166211333965121.png) 
 
 ![](images/pic1.png)
 

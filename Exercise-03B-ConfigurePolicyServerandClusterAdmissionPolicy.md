@@ -4,7 +4,9 @@
 
 A Kubewarden `PolicyServer` is completely managed by the `kubewarden-controller` and multiple `PolicyServers` can be deployed in the same Kubernetes cluster.
 
-The `PolicyServer` is the component which executes the Kubewarden policies when requests arrive and validates them.
+The `PolicyServer` is the component which executes the Kubewarden policies when requests arrive and validates them. To deploy PolicyServer , on Rancher server UI click on left most corner near Rancher logo  -> Home -> rke2-cluster1 -> Kubectl icon . ![](images/Rancher(3).png)
+
+Create a yaml file policyserver.yaml with below content and save it . 
 
 ```
 apiVersion: policies.kubewarden.io/v1alpha2
@@ -12,7 +14,7 @@ kind: PolicyServer
 metadata:
   name: reserved-instance-for-tenant-a
 spec:
-  image: ghcr.io/kubewarden/policy-server:v0.3.0
+  image: ghcr.io/kubewarden/policy-server:v1.1.2
   replicas: 2
   serviceAccountName: ~
   env:
@@ -20,11 +22,27 @@ spec:
     value: debug
 ```
 
+Now deploy policyserver.yaml file using below command , 
+
+```
+kubectl apply -f policyserver.yaml
+```
+
+You should see an output similar to below screen-shot ,
+
+
+
+
+
 ### 03B - 2) Configure Cluster Admission Policy 
 
 The `ClusterAdmissionPolicy` resource is the core of the Kubewarden stack. This resource defines how policies evaluate requests.
 
 Enforcing policies is the most common operation which a Kubernetes administrator  will perform. You can declare as many policies as you want, and each  policy will target one or more specific Kubernetes resources (i.e., `pods`, `Custom Resource`). You will also specify the type of operation(s) that will be applied for the targeted resource(s). The operations available are `CREATE`, `UPDATE`, `DELETE` and `CONNECT`.
+
+
+
+Create a yaml file clusteradmissionpolicy.yaml with below content and save it . 
 
 ```
 apiVersion: policies.kubewarden.io/v1alpha2
