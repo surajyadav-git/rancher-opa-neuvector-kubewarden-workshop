@@ -1,6 +1,6 @@
 
 
-# Excercise-03C - Example ClusterAdmissionPolicies
+# Exercise-03C - Example ClusterAdmissionPolicies
 
 Once you have the Kubewarden instance running, it's time to deploy some policies to replace the `PodSecurityPolicy` object . Let's create our  first Kubewarden policies . For this first example, we will use the  [user-group-psp policy](https://github.com/kubewarden/user-group-psp-policy)
 
