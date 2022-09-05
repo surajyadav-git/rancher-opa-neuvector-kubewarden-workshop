@@ -1,4 +1,4 @@
-# `LAB`-03A - Install Kubewarden 
+# LAB-03A - Install Kubewarden and configure policy server 
 
 
 
@@ -72,7 +72,43 @@ Wait until you see an output similar to below screen-shot ,
 
 ![](images/pic4.png)
 
-Now we have deployed Kubewarden stack . 
+Now we have deployed Kubewarden stack . Next step is to deploy policy server .
+
+
+
+### Step 3A.3 ) Deploy Policy server 
+
+A Kubewarden `PolicyServer` is completely managed by the `kubewarden-controller`. Multiple `PolicyServers` can be deployed in the same Kubernetes cluster.
+
+The `PolicyServer` is the component which executes the Kubewarden policies when requests arrive and validates them. To deploy PolicyServer , on Rancher server UI click on left most corner near Rancher logo  -> Home -> rke2-cluster1 -> Kubectl icon . 
+
+Create a yaml file `policyserver.yaml` with below content and save it . 
+
+```
+apiVersion: policies.kubewarden.io/v1alpha2
+kind: PolicyServer
+metadata:
+  name: reserved-instance-for-tenant-a
+spec:
+  image: ghcr.io/kubewarden/policy-server:v1.1.2
+  replicas: 2
+  serviceAccountName: ~
+  env:
+  - name: KUBEWARDEN_LOG_LEVEL
+    value: debug
+```
+
+Now deploy `policyserver.yaml` file using below command , 
+
+```
+kubectl apply -f policyserver.yaml
+```
+
+You should see an output similar to below screen-shot ,
+
+![](images/pic5.png)
+
+Now we have successfully deployed Policy server . 
 
 
 

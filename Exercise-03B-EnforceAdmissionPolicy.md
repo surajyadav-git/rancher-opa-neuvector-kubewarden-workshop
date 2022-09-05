@@ -1,16 +1,70 @@
 
 
-# Exercise-03C - Example ClusterAdmissionPolicies
+# Exercise-03B - Example ClusterAdmissionPolicies
 
-Once you have the Kubewarden instance running, it's time to deploy some policies to replace the `PodSecurityPolicy` object . Let's create our  first Kubewarden policies . For this first example, we will use the  [user-group-psp policy](https://github.com/kubewarden/user-group-psp-policy)
+Once you have the Kubewarden instance running, it's time to deploy some policies to replace the `PodSecurityPolicy` object . The `ClusterAdmissionPolicy` resource is the core of the Kubewarden stack. This resource defines how policies evaluate requests.
 
- Our goal will be to prevent the pods running as root on our Kubernetes cluster by enforcing this policy.
+Enforcing policies is the most common operation which a Kubernetes administrator  will perform. You can declare as many policies as you want, and each  policy will target one or more specific Kubernetes resources (i.e., `pods`, `Custom Resource`). You will also specify the type of operation(s) that will be applied for the targeted resource(s). The operations available are `CREATE`, `UPDATE`, `DELETE` and `CONNECT`.
 
-Let's define a `ClusterAdmissionPolicy` for that:
+Kubernetes by default **connects** all the **containers running in the same node** (even if they belong to different namespaces) down to **Layer 2** (ethernet). This allows a malicious containers to perform an [**ARP spoofing attack**](https://github.com/carlospolop/hacktricks/blob/master/generic-methodologies-and-resources/pentesting-network/#arp-spoofing) to the containers on the same node and capture their traffic. 
 
-## 03C -1 ) Example 1: Blocking pods running as root
+In order to avoid such ARP spoofing attack it is important , not to allow `NET_RAW` capability .  The Kubewarden Policy `psp-capabilities` controls Container Capabilities . In below example you can see `NET_RAW` capability under `required_drop_capabilities` section . These are capabilities which must be dropped from containers and are removed from the default set  . 
 
-Let's start with blocking pods running as root . For that you can deploy a policy as shown below , by copy paste below policy in kubectl shell ,
+Create a yaml file `clusteradmissionpolicy.yaml` with below content and save it . 
+
+```
+apiVersion: policies.kubewarden.io/v1alpha2
+kind: ClusterAdmissionPolicy
+metadata:
+  name: psp-capabilities
+spec:
+  policyServer: reserved-instance-for-tenant-a
+  module: registry://ghcr.io/kubewarden/policies/psp-capabilities:v0.1.7
+  rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    resources: ["pods"]
+    operations:
+    - CREATE
+    - UPDATE
+  mutating: true
+  settings:
+    allowed_capabilities:
+    - CHOWN
+    required_drop_capabilities:
+    - NET_RAW
+    - NET_ADMIN
+```
+
+Once deployed you should see an output similar to below screen-shot , 
+
+![](images/pic5-166212546820724.png)
+
+The following Pod would be rejected by the policy `psp-capabilities` : 
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello
+spec:
+  containers:
+  - name: hello
+    image: busybox
+    command: [ "sh", "-c", "echo 'Hello!' && sleep 1h" ]
+    securityContext:
+      capabilities:
+        add:
+        - NET_RAW
+```
+
+Now let us go ahead and create our first policy . 
+
+## 03B.1 ) Blocking pods running as root
+
+For this first example, we will use the  [user-group-psp policy](https://github.com/kubewarden/user-group-psp-policy)  .  Our goal will be to prevent the pods running as root on our Kubernetes cluster by enforcing this policy.  Let's define a `ClusterAdmissionPolicy` for that:
+
+Deploy below ClusterAdmissionPolicy , by copy paste kubectl shell ,
 
 ```
 kubectl apply -f - <<EOF
@@ -106,7 +160,7 @@ Error from server: error when creating "STDIN": admission webhook "clusterwide-p
 
 
 
-## 03C -2 ) Example 2: Allowing pod to use the port 443 only
+## 03B.2 ) Allowing pod to use the port 443 only
 
 To replace the PSP configuration that blocks privileged containers, it's necessary to deploy the [Host Namespaces PSP](https://github.com/kubewarden/host-namespaces-psp-policy). This policy does not require any settings. Once running, it will block users to use ports other than 443 and ports between 5000 - 6000 . 
 
@@ -172,4 +226,4 @@ Error from server: error when creating "STDIN": admission webhook "clusterwide-p
 
 Above example should work if 443 or a port range between 5000 to 6000 is used  . 
 
-**End of Exercise 03C .** 
+**End of Exercise 03B .** 
