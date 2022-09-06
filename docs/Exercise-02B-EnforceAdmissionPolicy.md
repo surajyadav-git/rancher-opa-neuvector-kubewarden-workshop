@@ -38,7 +38,7 @@ spec:
 
 Once deployed you should see an output similar to below screen-shot , 
 
-![](images/pic5-166212546820724.png)
+![](../images/pic5-166212546820724.png)
 
 The following Pod would be rejected by the policy `psp-capabilities` : 
 
@@ -101,7 +101,7 @@ Notice the policy is configured as `mutation: true`. This is required because th
 
 This will produce the following output:
 
-![](images/pic7.png)
+![](../images/pic7.png)
 
 When a  `ClusterAdmissionPolicy` is defined, the status is set to `pending`, and it will force a rollout of the targeted `PolicyServer`. You can monitor the rollout by running the following command:
 
@@ -109,7 +109,7 @@ When a  `ClusterAdmissionPolicy` is defined, the status is set to `pending`, and
 kubectl get clusteradmissionpolicy.policies.kubewarden.io/psp-usergroup
 ```
 
-![](images/pic8.png)
+![](../images/pic8.png)
 
 The `ClusterAdmissionPolicy` status will be set to active once the deployment is done for every `PolicyServer` instance. 
 
@@ -157,6 +157,12 @@ EOF
 ```
 Error from server: error when creating "STDIN": admission webhook "clusterwide-psp-usergroup-fb836.kubewarden.admission" denied the request: Invalid user ID: cannot run container with root ID (0)
 ```
+
+
+
+
+
+
 
 
 

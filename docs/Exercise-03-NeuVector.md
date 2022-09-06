@@ -64,7 +64,7 @@ Admin (Right Hand Corner) > My Profile > Edit my profile > Session Timeout > Cha
    4. Start Scan to scan the image in the registry.
       ![AddingRegistry-pg4](C:\Deepak-Data\SUSE\Rancher-Workshop\rancher-opa-neuvector-kubewarden-workshop\images\AddingRegistry-pg4.PNG)
 
-3. Click on the 'nging:latest' and it will open up the scan result as below. 
+3. Click on the 'nginx:latest' and it will open up the scan result as below. 
 
    ![AddingRegistry-pg5](C:\Deepak-Data\SUSE\Rancher-Workshop\rancher-opa-neuvector-kubewarden-workshop\images\AddingRegistry-pg5.PNG)
 

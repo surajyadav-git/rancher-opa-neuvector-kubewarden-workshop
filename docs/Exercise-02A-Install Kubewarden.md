@@ -1,4 +1,4 @@
-# LAB-03A - Install Kubewarden and configure policy server 
+# LAB-02A - Install Kubewarden and configure policy server 
 
 
 
@@ -16,7 +16,7 @@ Kubewarden chart depends on cert-manager . Since it is a dependency we will have
 
 To Install latest version of `cert-manager`, on Rancher server UI click on left most corner near Rancher logo ->Home -> rke2-cluster1 -> Kubectl icon  !
 
-![](images/pic1.png)
+![](../images/pic1.png)
 
 Run below commands in Kubectl shell  :
 
@@ -26,7 +26,7 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/downlo
 
 You should see an output similar to below screen-shot , 
 
-![](images/pic2.png)
+![](../images/pic2.png)
 
 
 
@@ -36,7 +36,7 @@ kubectl wait --for=condition=Available deployment --timeout=2m -n cert-manager -
 
 You should see an output similar to below screen-shot , 
 
-![](images/pic3.png)
+![](../images/pic3.png)
 
 Now we have successfully deployed Certmanager in our cluster . The next step would be to install kubewarden stack .  
 
@@ -70,7 +70,7 @@ Wait until you see an output similar to below screen-shot ,
 
 
 
-![](images/pic4.png)
+![](../images/pic4.png)
 
 Now we have deployed Kubewarden stack . Next step is to deploy policy server .
 
@@ -106,7 +106,7 @@ kubectl apply -f policyserver.yaml
 
 You should see an output similar to below screen-shot ,
 
-![](images/pic5.png)
+![](../images/pic5.png)
 
 Now we have successfully deployed Policy server . 
 
@@ -114,9 +114,9 @@ Now we have successfully deployed Policy server .
 
 **End of Exercise 1A** 
 
-Continue to: 
+Continue to:  [Exercise-02B-EnforceAdmissionPolicy.md](Exercise-02B-EnforceAdmissionPolicy.md) 
 
-[Exercise-03B-EnforceAdmissionPolicy](https://github.com/dsohk/rancher-opa-neuvector-kubewarden-workshop/blob/main/Exercise-03B-EnforceAdmissionPolicy.md)
+
 
 
 
