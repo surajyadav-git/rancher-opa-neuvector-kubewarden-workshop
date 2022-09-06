@@ -6,15 +6,13 @@ This exercise is independent. We'll experience ease of installing Open Policy Ag
 
 
 
-## Action 1: Install Open Policy Agent (OPA) 
+## Task 1: Install Open Policy Agent Gatekeeper (OPA Gatekeeper) 
 
-This action will involve 2 steps from 2B.1 to 2B.2
-
-**Step 3A.1)** Ensure that you are logged in to the Rancher (Refer to the Step 1 of section **Before We Begin**). Click on `Hamburger Menu icon (1)`. It will show list of clusters. Alternatively click on `Cluster Management (2)` .
+**Step 1)** Ensure that you are logged in to the Rancher (Refer to the Step 1 of section **Before We Begin**). Click on `Hamburger Menu icon (1)`. It will show list of clusters. Alternatively click on `Cluster Management (2)` .
 
 ![Screenshot-2022-07-24-at-6.19.44-PM](../images/Screenshot-2022-07-24-at-6.19.44-PM.png)
 
-**Step 3A.2)** Click on `Explore` button on downstream cluster `rke2-cluster1` from the main screen.
+**Step 2)** Click on `Explore` button on downstream cluster `rke2-cluster1` from the main screen.
 
 ![Screenshot-2022-07-24-at-6.21.26-PM](../images/Screenshot-2022-07-24-at-6.21.26-PM.png)
 
@@ -48,13 +46,13 @@ This action will involve 2 steps from 2B.1 to 2B.2
 
 
 
-**End of Action 1**
+
+
+----
 
 
 
-## Action 2: Define OPA Template
-
-This action will involve 4 steps from 3A.8 to 3A.11
+## Task 2: Define OPA Template
 
 **Step 3A.8)** Go to `OPA Gatekeeper` menu option and select `Template`. Now click on `Create from YAML` at the right upper screen. 
 
@@ -74,9 +72,13 @@ https://github.com/dsohk/rancher-opa-neuvector-kubewarden-workshop/blob/0df016de
 
 ![Screenshot-2022-09-05-at-9.26.42-PM](../images/Screenshot-2022-09-05-at-9.26.42-PM.png)
 
-## Action 3: Setup OPA Constraint
 
-This action will involve 4 steps from 3A.12 to 3A.11
+
+----
+
+
+
+## Task 3: Setup OPA Constraint
 
 **Step 3A.12)** A new **OPA Gatekeeper** menu will appear in left side static menu. Expand menu and click on `Constratint` submenu. Click on `Create` to proceed. 
 
@@ -126,9 +128,17 @@ Now click on `Workload (2)` option from the left hand static menu and select `De
 
 ![Screenshot-2022-09-05-at-9.37.38-PM](../images/Screenshot-2022-09-05-at-9.37.38-PM.png)
 
-**End of Action 3**
+----
 
-**End of Exercise 1A**
+
+
+## Task 4 - Demonstrate OPA gatekeeper
+
+TODO: 
+
+We need to demonstrate how this OPA gatekeeper can deny the pods that runs with pid outside the specified range.
+
+
 
 Continue to: [Exercise 1B-Validate OPA Gatekeeper](https://github.com/dsohk/rancher-private-registry-workshop/blob/main/docs/Exercise-01B-TestOPAConstraintForHarborDocker.md)
 

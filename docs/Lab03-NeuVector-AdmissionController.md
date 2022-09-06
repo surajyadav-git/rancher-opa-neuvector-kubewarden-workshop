@@ -55,18 +55,18 @@ Admin (Right Hand Corner) > My Profile > Edit my profile > Session Timeout > Cha
 
 
 
-1. Test Setting it will open a pop up window and the registry will be scanned for the image. ![AddingRegistry-pg2](C:\Deepak-Data\SUSE\Rancher-Workshop\rancher-opa-neuvector-kubewarden-workshop\images\AddingRegistry-pg2.PNG)
+1. Test Setting it will open a pop up window and the registry will be scanned for the image. ![AddingRegistry-pg2](../images/AddingRegistry-pg2.PNG)
 
 2. Above result shows success. You can click on back button & than click on 'Submit' 
 
-   ![AddingRegistry-pg3](C:\Deepak-Data\SUSE\Rancher-Workshop\rancher-opa-neuvector-kubewarden-workshop\images\AddingRegistry-pg3.PNG)
+   ![AddingRegistry-pg3](../images/AddingRegistry-pg3.PNG)
 
    4. Start Scan to scan the image in the registry.
-      ![AddingRegistry-pg4](C:\Deepak-Data\SUSE\Rancher-Workshop\rancher-opa-neuvector-kubewarden-workshop\images\AddingRegistry-pg4.PNG)
+      ![AddingRegistry-pg4](../images/AddingRegistry-pg4.PNG)
 
 3. Click on the 'nginx:latest' and it will open up the scan result as below. 
 
-   ![AddingRegistry-pg5](C:\Deepak-Data\SUSE\Rancher-Workshop\rancher-opa-neuvector-kubewarden-workshop\images\AddingRegistry-pg5.PNG)
+   ![AddingRegistry-pg5](../images/AddingRegistry-pg5.PNG)
 
 We now have the CVE which we wanted to use. 
 
@@ -74,7 +74,7 @@ CVE = 'CVE-2019-8457', Severity = 'High' and Score = '7.5/9.8'
 
 ## Step 4A.1 ) NeuVector Admission Policy.  
 
-1. NeuVector Dashboard > Policy > Admission Control.![admission-control-pg1](C:\Deepak-Data\SUSE\Rancher Hands On Workshop\Sept8-2022-workshop\rancher-opa-neuvector-kubewarden-workshop\images\admission-control-pg1-1662391820906-2.png)
+1. NeuVector Dashboard > Policy > Admission Control.![admission-control-pg1](../images/admission-control-pg1-1662391820906-2.png)
 
 2. Toggle the status bar. You will be presented with Mode - Monitor & Protect. 
 
@@ -114,13 +114,13 @@ Container Page > Image = 'nginx:latest'
 
 Click on 'Create'
 
-![NGINX-with-CVE-restricted-by-NeuVector-Admission-control](C:\Deepak-Data\SUSE\Rancher Hands On Workshop\Sept8-2022-workshop\rancher-opa-neuvector-kubewarden-workshop\images\NGINX-with-CVE-restricted-by-NeuVector-Admission-control.PNG)
+![NGINX-with-CVE-restricted-by-NeuVector-Admission-control](../images/NGINX-with-CVE-restricted-by-NeuVector-Admission-control.PNG)
 
 We are getting this error as our NeuVector Admission Control in Protect Mode is restricting the image with 'CVE-2019-8457'
 
 If you toggle back to NeuVector page
 
-NeuVector > Dashboard > Notification > Risk Reports > In the Search box on right hand top corner - Type 'Denied'  ![NGINX-with-CVE-restricted-by-NeuVector-Admission-control-pg1](C:\Deepak-Data\SUSE\Rancher Hands On Workshop\Sept8-2022-workshop\rancher-opa-neuvector-kubewarden-workshop\images\NGINX-with-CVE-restricted-by-NeuVector-Admission-control-pg1-1662397373557-22.png)
+NeuVector > Dashboard > Notification > Risk Reports > In the Search box on right hand top corner - Type 'Denied'  ![NGINX-with-CVE-restricted-by-NeuVector-Admission-control-pg1](../images/NGINX-with-CVE-restricted-by-NeuVector-Admission-control-pg1-1662397373557-22.png)
 
 We can clearly our risk report providing the details of Admission Control Denying the execution to create the deployment due to the NeuVector Policy. 
 
