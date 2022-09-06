@@ -1,4 +1,4 @@
-# LAB-02 Kubewarden - ClusterAdmissionPolicy  
+# Lab-02 - Kubewarden - ClusterAdmissionPolicy  
 
 
 

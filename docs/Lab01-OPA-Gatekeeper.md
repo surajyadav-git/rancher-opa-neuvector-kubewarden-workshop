@@ -1,4 +1,4 @@
-# Lab 1 A - Installing OPA, defining Template and setting up OPA constraint
+# Lab-01- Installing OPA, defining Template and setting up OPA constraint
 
 This exercise is independent. We'll experience ease of installing Open Policy Agent (OPA) from Rancher cluster tools and quickly setup the constaint to allow only specific registries for deployment. 
 

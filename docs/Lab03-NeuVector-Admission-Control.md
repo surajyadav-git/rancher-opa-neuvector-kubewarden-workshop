@@ -1,4 +1,4 @@
-# `LAB`-04 - NeuVector (Admission Control) 
+# Lab-03- NeuVector (Admission Control) 
 
 ## Background 
 
