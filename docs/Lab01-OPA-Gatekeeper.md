@@ -224,7 +224,7 @@ You will now see the Container spun up & running.
 
 
 
-Continue to: [Exercise 1B-Validate OPA Gatekeeper](https://github.com/dsohk/rancher-private-registry-workshop/blob/main/docs/Exercise-01B-TestOPAConstraintForHarborDocker.md)
+Continue to: [Lab02-Kubewarden](https://github.com/dsohk/rancher-private-registry-workshop/blob/main/docs/Lab02-Kubewarden.md)
 
 
 
