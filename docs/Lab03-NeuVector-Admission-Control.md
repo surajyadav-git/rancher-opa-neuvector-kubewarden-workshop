@@ -154,7 +154,7 @@ We can clearly our risk report providing the details of Admission Control Denyin
 
 So without any knowledge of programming language like Rego, Rust using NeuVector's intuitive UI, we have created a policy to restrict image with CVE not be execute in our cluster. 
 
-**End of Exercise 04**
+**End of Lab03 and Technical Hands-on Workshop as well** 
 
  
 

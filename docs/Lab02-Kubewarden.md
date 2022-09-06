@@ -350,5 +350,9 @@ Error from server: error when creating "STDIN": admission webhook "clusterwide-p
 
 Above example should work if 443 or a port range between 5000 to 6000 is used  . 
 
+Continue to: [Lab03-NeuVector-Admission Control](https://github.com/dsohk/rancher-opa-neuvector-kubewarden-workshop/blob/main/docs/Lab03-NeuVector-Admission-Control.md)
+
+
+
 **End of Exercise 03B .** 
 
