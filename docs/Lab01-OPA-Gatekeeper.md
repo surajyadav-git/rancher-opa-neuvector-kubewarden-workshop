@@ -82,7 +82,7 @@ Remove pre-filled text from the template editor.
 
 **Step 3)** 
 
-Specify template.yaml file content in the editor. Please refer below git link
+Specify template.yaml file content in the editor. Please refer below git link. Paste the content and click create.
 
 https://github.com/dsohk/rancher-opa-neuvector-kubewarden-workshop/blob/0df016defee05fa0744ea7fe2f5cc94a244a5ed5/template.yaml
 
