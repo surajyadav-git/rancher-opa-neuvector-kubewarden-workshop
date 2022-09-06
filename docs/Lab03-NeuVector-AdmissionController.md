@@ -88,17 +88,17 @@ Operator = 'Container All off ' or 'Contain Any of'
 
 Value = 'CVE-2019-8457'
 
-![admission-control-pg14](C:\Deepak-Data\SUSE\Rancher Hands On Workshop\Sept8-2022-workshop\rancher-opa-neuvector-kubewarden-workshop\images\admission-control-pg14.PNG)
+![admission-control-pg14](../images/admission-control-pg14.PNG)
 
-![admission-control-pg16.1](C:\Deepak-Data\SUSE\Rancher Hands On Workshop\Sept8-2022-workshop\rancher-opa-neuvector-kubewarden-workshop\images\admission-control-pg16.1.PNG)
+![admission-control-pg16.1](../images/admission-control-pg16.1.PNG)
 
 4. Our new policy with ID '1000 ' is created. For the policy to work toggle the mode from Monitor to Protect. 
 
-   ![admission-control-pg16.2](C:\Deepak-Data\SUSE\Rancher Hands On Workshop\Sept8-2022-workshop\rancher-opa-neuvector-kubewarden-workshop\images\admission-control-pg16.2.PNG)
+   ![admission-control-pg16.2](../images/admission-control-pg16.2.PNG)
 
    Navigate to Dashboard > Notification > Events.  
 
-   ![admission-control-pg16.3](C:\Deepak-Data\SUSE\Rancher Hands On Workshop\Sept8-2022-workshop\rancher-opa-neuvector-kubewarden-workshop\images\admission-control-pg16.3-1662393780750-12.PNG)
+   ![admission-control-pg16.3](../images/admission-control-pg16.3.PNG)
 
 Next step is to test our newly create policy. For this we will need to move to your browser window where you have the Rancher UI.   
 
