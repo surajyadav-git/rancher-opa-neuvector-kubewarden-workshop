@@ -48,7 +48,7 @@ Admin (Right Hand Corner) > My Profile > Edit my profile > Session Timeout > Cha
 
    Optionally you can select Scan Layer & Periodic Scan based on your requirement. 
    
-   ![AddingRegistry-pg1](C:\Deepak-Data\SUSE\Rancher-Workshop\rancher-opa-neuvector-kubewarden-workshop\images\AddingRegistry-pg1.PNG)
+   ![AddingRegistry-pg1](../images/AddingRegistry-pg1-1662430916095-2.PNG)
 
 2. Test Setting it will open a pop up window and the registry will be scanned for the image. ![AddingRegistry-pg2](C:\Deepak-Data\SUSE\Rancher-Workshop\rancher-opa-neuvector-kubewarden-workshop\images\AddingRegistry-pg2.PNG)
 
