@@ -1,4 +1,4 @@
-# `LAB`-04 - NeuVector (OPA functionality) 
+# `LAB`-04 - NeuVector (Admission Control) 
 
 ## Background 
 
@@ -13,6 +13,12 @@ But what if you don't have skilled and experience on Rego.  What if you want UI 
 SUSE NeuVector is your Zero Trust Container Security Platform. 
 
 In this lab exercise, we will create Admission Control Policy using NeuVector. Our intention is to prevent 'NGINX' image with high Severity Score to prevent running within our cluster. 
+
+In this exercise we will be performing 3 tasks as below
+
+- Task 1 - Adding Container Registry to NeuVector Asset list
+- Task 2 - Creating NeuVector Admission Policy.   
+- Task 3 - Validate NeuVector Admission Control Policy.  
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -78,7 +84,7 @@ CVE = 'CVE-2019-8457', Severity = 'High' and Score = '7.5/9.8'
 
 ## Task 2 - Creating NeuVector Admission Policy.   
 
-In this task we will create the new admission policy to restrict container image with certain CVE Numbers. 
+In this task we will create the new admission control policy to restrict container image with certain CVE Numbers. 
 
 **Step 1)** 
 
@@ -120,7 +126,9 @@ Next step is to test our newly create policy. For this we will need to move to y
 
 
 
-## Task 3 - Validate NeuVector Admission Policy.  
+## Task 3 - Validate NeuVector Admission Control Policy.  
+
+In this step we will validate NeuVector Admission Control policy we created in the previous step
 
 **Step 1)** 
 
