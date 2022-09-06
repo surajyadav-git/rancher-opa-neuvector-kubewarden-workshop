@@ -208,7 +208,7 @@ Click on `Container Tab`  and scroll down to Security Context. In the `Run as Us
 
 ![opa-gatekeeper-policy-validation-pg6](../images/opa-gatekeeper-policy-validation-pg6.png)
 
-Leave other setting to default & click on `Create`.
+Leave other setting to default & click on `Save`.
 
 **Step 5)** 
 
