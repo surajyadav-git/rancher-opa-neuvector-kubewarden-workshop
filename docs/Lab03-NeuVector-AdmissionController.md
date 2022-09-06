@@ -26,51 +26,86 @@ In this exercise, we will create Admission Control Policy using NeuVector. Our i
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Pre-requisite. 
+## Trask 1 Pre-requisite. 
 
-You will be provided with Rancher and NeuVector URL. Please open the file with your favourite editor. Copy and paste the NeuVector URL in your browser. 
+**Step 1)** 
 
-You will be promoted for username & credentials. Supply the credentials & login. Upon successful login, you will be prompted to accept the agreement. Please accept & proceed. 
+You will be provided with Rancher and NeuVector URL. Please open the file with your favourite editor. 
+
+Copy and paste the NeuVector URL in your browser. 
+
+You will be promoted for username & credentials. Supply the credentials & login.
+
+username = 'admin'
+
+password = 'admin'
+
+Upon successful login, you will be prompted to accept the end user license agreement. Please accept & proceed. 
 
 You will be presented with NeuVector Dashboard. 
 
-Before we proceed with the exercise. 
+Before we proceed, we will change the session timeout to higher value to avoid frequent re-login. 
 
-Admin (Right Hand Corner) > My Profile > Edit my profile > Session Timeout > Change current value to 3600. (Present value would be 300). You may be prompted to re-login.
+Click on Admin (Right Hand Corner) > My Profile > Edit my profile > Session Timeout > Change current value to 3600. (Present value would be 300). You may be prompted to re-login.
 
-1. NeuVector Dashboard > Assets > Registries  > Add Registries. 
+**Step 2)**
 
-   Name = 'DockerHub'
+NeuVector Dashboard > Assets > Registries  > Add Registries. 
 
-   Registry URL = 'https://registry.hub.docker.com'
+Name = 'DockerHub'
 
-   Filter = 'nginx:latest'
+Registry URL = 'https://registry.hub.docker.com'
 
-   Optionally you can select Scan Layer & Periodic Scan based on your requirement. 
-   
+Filter = 'nginx:latest' & click Tab. Your filter will be added to the filter list.
 
-
+Optionally if you want you can toggle the Scan Layer & Periodic Scan based on your requirement. 
 
 ![AddingRegistry-pg1](../images/AddingRegistry-pg1.PNG)
 
+**Step 3)**
+
+Click on 'Test Setting' it will open a pop up window. Result will return with Image discovery. We can than click 'back' to return to NeuVector 
+
+![AddingRegistry-pg1.1](../images/AddingRegistry-pg1.1.PNG)
 
 
-1. Test Setting it will open a pop up window and the registry will be scanned for the image. ![AddingRegistry-pg2](../images/AddingRegistry-pg2.PNG)
 
-2. Above result shows success. You can click on back button & than click on 'Submit' 
+Above result shows success. You can click on back button & than click on 'Submit'. Start Scan to scan the image in the registry.
+
+![AddingRegistry-pg1.2](../images/AddingRegistry-pg1.2.PNG)
+
+
+
+Click on the 'nginx:latest' and it will open up the scan result as below. 
+
+![AddingRegistry-pg1.3](../images/AddingRegistry-pg1.3.PNG)
+
+We now have the CVE which we wanted to use. 
+
+CVE = 'CVE-2019-8457', Severity = 'High' and Score = '7.5/9.8' 
+
+
+
+--------------------------------------
+
+To remove post confirmation
+
+1. ![AddingRegistry-pg2](../images/AddingRegistry-pg2.PNG)
+
+2. 
 
    ![AddingRegistry-pg3](../images/AddingRegistry-pg3.PNG)
 
    4. Start Scan to scan the image in the registry.
       ![AddingRegistry-pg4](../images/AddingRegistry-pg4.PNG)
 
-3. Click on the 'nginx:latest' and it will open up the scan result as below. 
+3. 
 
    ![AddingRegistry-pg5](../images/AddingRegistry-pg5.PNG)
 
-We now have the CVE which we wanted to use. 
+-----------
 
-CVE = 'CVE-2019-8457', Severity = 'High' and Score = '7.5/9.8' 
+
 
 ## Step 4A.1 ) NeuVector Admission Policy.  
 
