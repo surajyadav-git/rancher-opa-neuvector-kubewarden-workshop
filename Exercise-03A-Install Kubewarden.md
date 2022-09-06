@@ -116,5 +116,7 @@ Now we have successfully deployed Policy server .
 
 Continue to: 
 
-[]: /home/karthick/Documents/GitHub/rancher-opa-neuvector-kubewarden-workshop/Exercise-03B-ConfigurePolicyServerandClusterAdmissionPolicy.md
+[Exercise-03B-EnforceAdmissionPolicy](https://github.com/dsohk/rancher-opa-neuvector-kubewarden-workshop/blob/main/Exercise-03B-EnforceAdmissionPolicy.md)
+
+
 
