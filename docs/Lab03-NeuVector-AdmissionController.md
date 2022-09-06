@@ -80,6 +80,8 @@ CVE = 'CVE-2019-8457', Severity = 'High' and Score = '7.5/9.8'
 
 In this task we will create the new admission policy to restrict container image with certain CVE Numbers. 
 
+**Step 1)** 
+
 NeuVector Dashboard > Policy > Admission Control.![admission-control-pg1](../images/admission-control-pg1-1662391820906-2.png)
 
 Toggle the status bar to enable Admission Control. 
@@ -87,6 +89,8 @@ Toggle the status bar to enable Admission Control.
 Be default, you will be in Mode 'Monitor'.
 
 ![admission-control-pg1.1](../images/admission-control-pg1.1.png)
+
+**Step 2)** 
 
 Next step is to create the add/create a new Admission Control Policy. A form will be presented to you. Post entering details as below, click on '+' symbol
 
@@ -102,7 +106,9 @@ Upon clicking 'Add" your new policy with ID '1000 ' is created.
 
 ![admission-control-pg16.1](../images/admission-control-pg16.1.PNG)
 
- Next step is to toggle the Mode to 'Protect' which will enforce the policy to restrict the pod with select CVE to run as container in our cluster. 
+**Step 3)**  
+
+Next step is to toggle the Mode to 'Protect' which will enforce the policy to restrict the pod with select CVE to run as container in our cluster. 
 
 ![admission-control-pg16.2](../images/admission-control-pg16.2.PNG)
 
@@ -115,6 +121,8 @@ Next step is to test our newly create policy. For this we will need to move to y
 
 
 ## Task 3 - Validate NeuVector Admission Policy.  
+
+**Step 1)** 
 
 Rancher UI > Home > Explore Cluster > 'rke2-cluster1' > Workload > Deployments > Create 
 
