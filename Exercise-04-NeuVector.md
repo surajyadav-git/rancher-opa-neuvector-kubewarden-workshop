@@ -49,7 +49,7 @@ Admin (Right Hand Corner) > My Profile > Edit my profile > Session Timeout > Cha
    Optionally you can select Scan Layer & Periodic Scan based on your requirement. 
    
 
-![addingregistry-pg1](../images/addingregistry-pg1-1662431940876-10.PNG)
+![addingregistry-pg1](../images/addingregistry-pg1-1662432235658-12.PNG)
 
 
 
