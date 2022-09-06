@@ -26,7 +26,7 @@ In this exercise, we will create Admission Control Policy using NeuVector. Our i
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Trask 1 Pre-requisite. 
+## Task 1 - Adding Container Registry to NeuVector Asset list
 
 **Step 1)** 
 
@@ -84,38 +84,19 @@ We now have the CVE which we wanted to use.
 
 CVE = 'CVE-2019-8457', Severity = 'High' and Score = '7.5/9.8' 
 
+## Task 2 - Creating NeuVector Admission Policy.   
 
+NeuVector Dashboard > Policy > Admission Control.![admission-control-pg1](../images/admission-control-pg1-1662391820906-2.png)
 
---------------------------------------
+Toggle the status bar. You will be presented with Mode - Monitor & Protect. 
 
-To remove post confirmation
+![admission-control-pg1.1](../images/admission-control-pg1.1.png)
 
-1. ![AddingRegistry-pg2](../images/AddingRegistry-pg2.PNG)
+Toggle the switch to 'Protect' Mode
 
-2. 
+![admission-control-pg16.2](../images/admission-control-pg16.2.PNG)
 
-   ![AddingRegistry-pg3](../images/AddingRegistry-pg3.PNG)
-
-   4. Start Scan to scan the image in the registry.
-      ![AddingRegistry-pg4](../images/AddingRegistry-pg4.PNG)
-
-3. 
-
-   ![AddingRegistry-pg5](../images/AddingRegistry-pg5.PNG)
-
------------
-
-
-
-## Step 4A.1 ) NeuVector Admission Policy.  
-
-1. NeuVector Dashboard > Policy > Admission Control.![admission-control-pg1](../images/admission-control-pg1-1662391820906-2.png)
-
-2. Toggle the status bar. You will be presented with Mode - Monitor & Protect. 
-
-   ![admission-control-pg1.1](C:\Deepak-Data\SUSE\Rancher Hands On Workshop\Sept8-2022-workshop\rancher-opa-neuvector-kubewarden-workshop\images\admission-control-pg1.1.png)
-
-3. Click on Add to create a new Admission Control Policy. A form will be presented to you. Post entering details as below, click on '+' symbol
+Click on Add to create a new Admission Control Policy. A form will be presented to you. Post entering details as below, click on '+' symbol
 
 Criterion = 'CVE Names'
 
