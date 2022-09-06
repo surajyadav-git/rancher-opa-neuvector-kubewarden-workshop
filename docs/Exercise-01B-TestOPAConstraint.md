@@ -88,4 +88,4 @@ Bingo! The OPA constraint is working as we were expecting. But wait... How much 
 
 **End of Exercise 1B**
 
-Continue to: [Exercise 2A-Kubewarden](https://github.com/dsohk/rancher-private-registry-workshop/blob/main/docs/Exercise-02A-Kubewarden.md)
+Continue to: [Exercise 2A-Kubewarden](/docs/Lab02-Kubewarden.md)

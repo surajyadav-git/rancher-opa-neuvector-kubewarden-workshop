@@ -132,7 +132,7 @@ Now click on `Workload` option from the left hand static menu and select `Deploy
 
 **End of Exercise 1A**
 
-Continue to: [Exercise 1B-Validate OPA Gatekeeper](https://github.com/dsohk/rancher-private-registry-workshop/blob/main/docs/Exercise-01B-TestOPAConstraint.md)
+Continue to: [Exercise 1B-Validate OPA Gatekeeper](/docs/Exercise-01B-TestOPAConstraint.md)
 
 
 
