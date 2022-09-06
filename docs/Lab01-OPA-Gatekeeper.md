@@ -224,7 +224,7 @@ You will now see the Container spun up & running.
 
 
 
-Continue to: [Lab02-Kubewarden](https://github.com/dsohk/rancher-opa-neuvector-kubewarden-workshop/blob/main/docs/Lab02-Kubewarden.md)
+Continue to: [Lab02-Kubewarden-ClusterAdmissionPolicy](https://github.com/dsohk/rancher-opa-neuvector-kubewarden-workshop/blob/main/docs/Lab02-Kubewarden.md)
 
 
 
