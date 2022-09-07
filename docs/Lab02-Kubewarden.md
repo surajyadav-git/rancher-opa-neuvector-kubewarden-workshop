@@ -202,19 +202,16 @@ Click on Execute shell into the redeployed pod and run below command to check th
 
 ```bash
 zypper install -y libcap-progs
-capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
+capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs )
 ```
 
-You can see an output similar to below . You can see the NET_RAW capabilities is gone/dropped in the pod, because of the enforcement by the admission policy in Kubewarden)
+You can see an output similar to below screenshot . You can see the `NET_RAW` capabilities is gone/dropped in the pod, because of the enforcement by the admission policy in Kubewarden)
 
-```bash
-kubewarden-test1-5b76ccf5c4-mbjkz:/ # capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
-kubewarden-test1-5b76ccf5c4-mbjkz:/ # capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs )                                               
-0x00000000a80405fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap
-kubewarden-test1-5b76ccf5c4-mbjkz:/ # 
-```
+![](../images/pic20.png)
 
-End of Lab02-Kubewarden . Once you have completed the lab kindly remove drop-cap-net-raw policy under More Resources -> policies.kubewarden.io -> AdmissionPolicies as below , 
+
+
+**End of Lab02-Kubewarden** . Once you have completed the lab kindly remove drop-cap-net-raw policy under `More Resources -> policies.kubewarden.io -> AdmissionPolicies` as below , 
 
 ![](../images/pic19.png)
 
