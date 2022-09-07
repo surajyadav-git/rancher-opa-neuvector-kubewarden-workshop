@@ -130,9 +130,9 @@ Now click on `Workload` option from the left hand static menu and select `Deploy
 
 ![Screenshot-2022-09-05-at-9.37.38-PM](../images/Screenshot-2022-09-05-at-9.37.38-PM.png)
 
-**End of Task 3**
+**End of Task 4**
 
-## Task 4: Validate constraint - Create deployment to run container as root user and our policy shouldn't allow to admit the container. 
+## Task 5: Validate constraint - Create deployment to run container as root user and our policy shouldn't allow to admit the container. 
 
 This action will involve 5 steps from 1 to 5
 
@@ -166,9 +166,9 @@ Now navigate to the `Containers` tab.
 
 ![Screenshot-2022-09-06-at-7.22.21-AM](../images/Screenshot-2022-09-06-at-7.22.21-AM.png)
 
-**End of Task 4**
+**End of Task 5**
 
-## Task 5: Validate deployment - Create deployment to run container as non-root user and our policy should admit the container. 
+## Task 6: Validate deployment - Create deployment to run container as non-root user and our policy should admit the container. 
 
 This action will involve 6 steps from 1 to 6
 
@@ -202,17 +202,17 @@ Now navigate to the `Containers` tab.
 
 ![Screenshot-2022-09-06-at-7.31.41-AM](../images/Screenshot-2022-09-06-at-7.31.41-AM.png)
 
-**Step 6)** Execute command `id` in the shell and verify that `uid`, `gid`, and `groups` values are 101 as specified in the container. 
+**Step 6)** Execute command `id` in the shell and verify that `uid`, `gid`, and `groups` values are 101 as specified in the container image. 
 
 ![Screenshot-2022-09-06 at-7.34.09-AM](../images/Screenshot-2022-09-06-at-7.34.09-AM.png)
 
 Bingo! The OPA constraint is working as we were expecting. But wait... How much you are familiar with REGO language and how much effort it will require to create an OPA template if you are relatively newer in this space? Definitely, there are readymade templates available on git [gatekeepr-library](https://github.com/open-policy-agent/gatekeeper-library) which you may explore. However, there are good alternatives for advance policy control like `ARP Spoofing` etc. Let's conclude it here the and move on to the next exercise to explore Kubewarden. 
 
-**End of Task 5**
+**End of Task 6**
 
 **End of LAB 1**
 
-Continue to: [Lab 2: Admission Control - Kubewarden](/docs/Lab02-Kubewarden.md)
+Continue to: [Lab 2: Kubewarden](/docs/Lab02-Kubewarden.md)
 
 
 

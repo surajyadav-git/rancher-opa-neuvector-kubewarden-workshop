@@ -7,9 +7,9 @@ A technical hands-on workshop focus on Kubernetes admission controller.
 
 2. Make sure you have access to following urls behind your corporate firewall/personal computers. 
 
-   Github (https://github.com/) 
+   [Github](https://github.com/) 
 
-   Sslip (https://sslip.io, *.sslip.io)
+   [Sslip](https://sslip.io) (, *.sslip.io)
 
 3. Watch previous demo on [Rancher private registry workshop](https://github.com/dsohk/rancher-private-registry-workshop/)   
 
@@ -18,7 +18,7 @@ A technical hands-on workshop focus on Kubernetes admission controller.
 
    [Automation](https://github.com/dsohk/workshops/tree/main/scenarios/azure/rancher-neuvector)  
 
-5. Optional - Access to SUSE Partner Portal (https://myaccount.suse.com/)
+5. Optional - Access to [SUSE Partner Portal](https://myaccount.suse.com/)
 
 
 
@@ -79,7 +79,7 @@ Now the login page will be displayed and proceed to authenticate yourself by ent
 
 This lab consists of 3 exercises. 
 
-* ##### Lab-01:[Open Policy Agent Gatekeeper](docs/Exercise-01A-OPASetup.md)
+* ##### Lab-01:[Open Policy Agent Gatekeeper](docs/Lab01A-OPAGatekeeper.md)
   
 * ##### Lab-02:[Kubewarden](docs/Lab02-Kubewarden.md)
   
