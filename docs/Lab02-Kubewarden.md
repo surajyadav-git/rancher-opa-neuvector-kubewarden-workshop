@@ -35,12 +35,14 @@ Kubewarden chart depends on cert-manager . Since it is a dependency we will have
 To Install latest version of `cert-manager`, 
 
 1. Login to your Rancher Server instance with your given credential. 
+
 2. From the left-side menu, click the downstream cluster `rke2-cluster` to get into the **Cluster Explorer** page.
+
+   ![Screenshot-2022-07-24-at-6.21.26-PM](../images/Screenshot-2022-07-24-at-6.21.26-PM.png)
+
 3. At this **Cluster Explorer** page, at the top icon menu bar. click the "> _" icon to open the web-based terminal shell.
 
-
-
-![](../images/pic1.png)
+![](../images/pic9.png)
 
 Run below commands in Kubectl shell  :
 
@@ -50,17 +52,7 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/latest/downlo
 
 You should see an output similar to below screen-shot , 
 
-![](../images/pic2.png)
-
-
-
-```
-kubectl wait --for=condition=Available deployment --timeout=2m -n cert-manager --all
-```
-
-You should see an output similar to below screen-shot , 
-
-![](../images/pic3.png)
+![](../images/pic10.png)
 
 Now we have successfully deployed Certmanager in our cluster . The next step would be to install kubewarden stack .  
 
@@ -91,6 +83,12 @@ helm install --wait -n kubewarden kubewarden-defaults kubewarden/kubewarden-defa
 
 Wait until you see an output similar to below screen-shot , 
 
+
+
+![](../images/pic12.png)
+
+
+
 ![](../images/pic4.png)
 
 Now we have deployed Kubewarden stack . Next step is to deploy policy server .
@@ -107,23 +105,23 @@ Now we have deployed Kubewarden stack . Next step is to deploy policy server .
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kubewarden-test
+  name: bci-sle15
   labels:
-    app: kubewarden-test
+    app: sle15
 spec:
   replicas: 1
   strategy: 
     type: RollingUpdate
   selector:
     matchLabels:
-      app: kubewarden-test
+      app: sle15
   template:
     metadata:
       labels:
-        app: kubewarden-test
+        app: sle15
     spec:
       containers:
-      - name: kubewarden-test
+      - name: sle15
         image: registry.suse.com/suse/sle15:latest
         imagePullPolicy: IfNotPresent
         command: ['sh', '-c', 'echo Container 1 is Running ; sleep 3600']
@@ -136,7 +134,7 @@ then, execute shell into the pod
 run this command to check the inherited linux capabilities:
 
 ```bash
-zypper install -y libcap-progs iftop
+zypper install -y libcap-progs
 capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
 ```
 
@@ -150,15 +148,9 @@ kubewarden-test1-75bc67757b-lkv9g:/ #
 
 
 
-We oberved the CAP_NET_RAW linux capabiliteis exists even if the pod manfiest does not do anything requesting it in the security context configuration of its deployment.
+We oberved the CAP_NET_RAW linux capabilities exists even if the pod manifest does not do anything requesting it in the security context configuration of its deployment.
 
- Also, the network utility `iftop`, which requires NET_RAW capability, should be runnable inside this pod.
 
-run this command: `iftop`
-
-expected output
-
-![image-20220907202039308](../images/kubewarden-iftop-output.png)
 
 ## Task 3 : Enforce Admission Control Policy to drop NET_RAW capabilities
 
@@ -217,7 +209,7 @@ shell into the redeployed pod
 run this command to check the inherited linux capabilities:
 
 ```bash
-zypper install -y libcap-progs iftop
+zypper install -y libcap-progs
 capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
 ```
 
@@ -230,15 +222,7 @@ kubewarden-test1-5b76ccf5c4-mbjkz:/ # capsh --decode=$( cat /proc/$$/status | gr
 kubewarden-test1-5b76ccf5c4-mbjkz:/ # 
 ```
 
-Also, the `iftop` utility is no longer runnable in this pod because of the lack of NET_RAW capability.
 
-```bash
-kubewarden-test1-5b76ccf5c4-mbjkz:/ # iftop
-interface: eth0
-IP address is: 10.42.176.73
-MAC address is: e6:c7:47:9a:b4:0e
-pcap_open_live(eth0): eth0: You don't have permission to capture on that device (socket: Operation not permitted)
-```
 
 
 
