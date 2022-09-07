@@ -91,7 +91,9 @@ Now we have deployed Kubewarden stack with default policy server . Next step is 
 
 ## Task 2: Deploy a sample pod and check NET_RAW capabilities is inherited by default
 
-Let us now create a sample pod without requesting any NET_RAW capability under security context configuration .  Create a manifest file named `bcisle15default.yaml` with below content and save it . 
+Kubernetes by default **connects** all the **containers running in the same node** (even if they belong to different namespaces) down to **Layer 2** (ethernet). This allows a malicious containers to perform an [**ARP spoofing attack**](https://github.com/carlospolop/hacktricks/blob/master/generic-methodologies-and-resources/pentesting-network/#arp-spoofing) to the containers on the same node and capture their traffic. 
+
+In order to avoid such ARP spoofing attack it is important , not to allow `NET_RAW` capability . Let us now create a sample pod without requesting any NET_RAW capability under security context configuration .  Create a manifest file named `bcisle15default.yaml` with below content and save it . 
 
 ```yaml
 apiVersion: apps/v1
@@ -144,33 +146,7 @@ capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | 
 
 ![](../images/pic17.png)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-expected output:
-
-```bash
-kubewarden-test1-75bc67757b-lkv9g:/ # capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
-0x00000000a80425fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap
-kubewarden-test1-75bc67757b-lkv9g:/ # 
-```
-
-
-
-We oberved the CAP_NET_RAW linux capabilities exists even if the pod manifest does not do anything requesting it in the security context configuration of its deployment.
-
-
+You can see on above output the `CAP_NET_RAW` linux capabilities exists even if the pod manifest does not do anything requesting it in the security context configuration of its deployment. In Task 3 create an admission control policy to drop the `NET_RAW` capabilities so that when a pod is created with `CAP_NET_RAW`  
 
 ## Task 3 : Enforce Admission Control Policy to drop NET_RAW capabilities
 
@@ -178,11 +154,9 @@ Once you have the Kubewarden instance running, it is time to deploy some policie
 
 Enforcing policies is the most common operation which a Kubernetes administrator  will perform. You can declare as many policies as you want, and each  policy will target one or more specific Kubernetes resources (i.e., `pods`, `Custom Resource`). You will also specify the type of operation(s) that will be applied for the targeted resource(s). The operations available are `CREATE`, `UPDATE`, `DELETE` and `CONNECT`.
 
-Kubernetes by default **connects** all the **containers running in the same node** (even if they belong to different namespaces) down to **Layer 2** (ethernet). This allows a malicious containers to perform an [**ARP spoofing attack**](https://github.com/carlospolop/hacktricks/blob/master/generic-methodologies-and-resources/pentesting-network/#arp-spoofing) to the containers on the same node and capture their traffic. 
+ The Kubewarden Policy `psp-capabilities` controls Container Capabilities . In below example you can see `NET_RAW` capability under `required_drop_capabilities` section . These are capabilities which must be dropped from containers and are removed from the default set  . 
 
-In order to avoid such ARP spoofing attack it is important , not to allow `NET_RAW` capability .  The Kubewarden Policy `psp-capabilities` controls Container Capabilities . In below example you can see `NET_RAW` capability under `required_drop_capabilities` section . These are capabilities which must be dropped from containers and are removed from the default set  . 
-
-Create a yaml file `clusteradmissionpolicy.yaml` with below content and execute the same in kubectl shell . 
+Create a yaml file `clusteradmissionpolicy.yaml` with below content and execute the same in kubectl shell or use import YAML option from UI and copy paste below manifest file ,
 
 ```yaml
 apiVersion: policies.kubewarden.io/v1alpha2
@@ -208,32 +182,30 @@ spec:
     - NET_RAW
 ```
 
-Once deployed you should see an output similar to below screen-shot under `policies.kubewarden.io -> AdmissionPolicies ,` 
+Once deployed you should see an output similar to below screen-shot under `More Resources -> policies.kubewarden.io -> AdmissionPolicies ,` 
 
 ![](../images/kubewarden-admission-policy-crd.png)
 
-
+Now that the policy is enforced let us redeploy the sample pod with `NET_RAW` capability , which should be denied by drop-cap-net-raw policy .
 
 
 
 ## Task 4 : Redeploy the same sample pod and check NET_RAW capabilities is not available anymore in that pod.
 
+Now Redeploy the sample pod `bci-sle15` by clicking on the three dots on right corner of `bci-sle15` pod under `Workload - > Deployments` 
+
+![](../images/pic18.png)
 
 
-Redeploy the sample pod `kubewarden-test1`
 
-![image-20220907200313670](../images/kubewarden-redeploy-testpod.png)
-
-shell into the redeployed pod
-
-run this command to check the inherited linux capabilities:
+Click on Execute shell into the redeployed pod and run below command to check the inherited linux capabilities:
 
 ```bash
 zypper install -y libcap-progs
 capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
 ```
 
-expected output (NET_RAW capabilities is gone/dropped in the pod, because of the enforcement by the admission policy in Kubewarden)
+You can see an output similar to below . You can see the NET_RAW capabilities is gone/dropped in the pod, because of the enforcement by the admission policy in Kubewarden)
 
 ```bash
 kubewarden-test1-5b76ccf5c4-mbjkz:/ # capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
@@ -242,9 +214,11 @@ kubewarden-test1-5b76ccf5c4-mbjkz:/ # capsh --decode=$( cat /proc/$$/status | gr
 kubewarden-test1-5b76ccf5c4-mbjkz:/ # 
 ```
 
+End of Lab02-Kubewarden . Once you have completed the lab kindly remove drop-cap-net-raw policy under More Resources -> policies.kubewarden.io -> AdmissionPolicies as below , 
 
+![](../images/pic19.png)
 
-
+Confirm and delete the drop-cap-net-raw policy . 
 
 Continue to: [Lab03-NeuVector-Admission Control](https://github.com/dsohk/rancher-opa-neuvector-kubewarden-workshop/blob/main/docs/Lab03-NeuVector-Admission-Control.md)
 
