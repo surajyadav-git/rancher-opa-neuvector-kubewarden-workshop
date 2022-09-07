@@ -107,23 +107,23 @@ Now we have deployed Kubewarden stack . Next step is to deploy policy server .
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bci-sle15
+  name: kubewarden-test
   labels:
-    app: sle15
+    app: kubewarden-test
 spec:
   replicas: 1
   strategy: 
     type: RollingUpdate
   selector:
     matchLabels:
-      app: sle15
+      app: kubewarden-test
   template:
     metadata:
       labels:
-        app: sle15
+        app: kubewarden-test
     spec:
       containers:
-      - name: sle15
+      - name: kubewarden-test
         image: registry.suse.com/suse/sle15:latest
         imagePullPolicy: IfNotPresent
         command: ['sh', '-c', 'echo Container 1 is Running ; sleep 3600']
@@ -136,7 +136,7 @@ then, execute shell into the pod
 run this command to check the inherited linux capabilities:
 
 ```bash
-zypper install -y libcap-progs
+zypper install -y libcap-progs iftop
 capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
 ```
 
@@ -152,7 +152,13 @@ kubewarden-test1-75bc67757b-lkv9g:/ #
 
 We oberved the CAP_NET_RAW linux capabiliteis exists even if the pod manfiest does not do anything requesting it in the security context configuration of its deployment.
 
+ Also, the network utility `iftop`, which requires NET_RAW capability, should be runnable inside this pod.
 
+run this command: `iftop`
+
+expected output
+
+![image-20220907202039308](../images/kubewarden-iftop-output.png)
 
 ## Task 3 : Enforce Admission Control Policy to drop NET_RAW capabilities
 
@@ -211,7 +217,7 @@ shell into the redeployed pod
 run this command to check the inherited linux capabilities:
 
 ```bash
-zypper install -y libcap-progs
+zypper install -y libcap-progs iftop
 capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
 ```
 
@@ -224,7 +230,15 @@ kubewarden-test1-5b76ccf5c4-mbjkz:/ # capsh --decode=$( cat /proc/$$/status | gr
 kubewarden-test1-5b76ccf5c4-mbjkz:/ # 
 ```
 
+Also, the `iftop` utility is no longer runnable in this pod because of the lack of NET_RAW capability.
 
+```bash
+kubewarden-test1-5b76ccf5c4-mbjkz:/ # iftop
+interface: eth0
+IP address is: 10.42.176.73
+MAC address is: e6:c7:47:9a:b4:0e
+pcap_open_live(eth0): eth0: You don't have permission to capture on that device (socket: Operation not permitted)
+```
 
 
 
