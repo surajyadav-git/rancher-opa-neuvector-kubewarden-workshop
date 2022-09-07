@@ -26,11 +26,11 @@ A technical hands-on workshop focus on Kubernetes admission controller.
 
 | Software  | Version         | Remarks                                                      |
 | --------  | --------------- | ------------------------------------------------------------ |
-| Rancher   | 2.6.8           | Enterprise-grade Kubernetes Management Platform              |
-| RKE2      | TBD.            | Rancher Kubernetes Engine 2 - with Kubernetes version 1.23.6 |
-| OPA       | TBD.            | Open Policy Agent Gatekeeper: Policy and Governance for Kubernetes |
-| Kubewarden| TBD.            | TBD |
-| NeuVector | TBD.            | TBD |
+| Rancher   | v2.6.7           | Enterprise-grade Kubernetes Management Platform              |
+| RKE2      | v1.21.4+rke2r2            | Rancher Kubernetes Engine 2 - with Kubernetes version 1.21.4 |
+| OPA Gatekeeper      | v100.2.0+up3.8.1            | Open Policy Agent Gatekeeper: Policy and Governance for Kubernetes |
+| Kubewarden| v1.0            | Kubewarden is a policy engine for Kubernetes. Its mission is to simplify the adoption of policy-as-code. |
+| NeuVector | v5.0.2            | Full Lifecycle Container Security |
 
 
 
