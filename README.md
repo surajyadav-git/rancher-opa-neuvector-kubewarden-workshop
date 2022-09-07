@@ -13,7 +13,7 @@ A technical hands-on workshop focus on Kubernetes admission controller.
 
 3. Watch previous demo on [Rancher private registry workshop](https://github.com/dsohk/rancher-private-registry-workshop/)   
 
-4. To spin this lab with your own personal/corporate Microsoft Azure Cloud account, please follow [Automation](https://github.com/dsohk/workshops/tree/main/scenarios/azure/rancher-neuvector)  link
+4. To spin this lab with your own personal/corporate Microsoft Azure Cloud account, please follow [this lab preparation guide with terraform automation script](https://github.com/dsohk/workshops/tree/main/scenarios/azure/rancher-neuvector)  link
 
 5. Optional - Access to [SUSE Partner Portal](https://myaccount.suse.com/)
 
