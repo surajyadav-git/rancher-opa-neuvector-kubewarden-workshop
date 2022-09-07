@@ -66,7 +66,7 @@ This action will involve 4 steps from 1 to 4
 
 **Step 3)** Copy [template.yaml](/template.yaml) file content into the OPA Template editor (Please open link in new tab and make sure to navigate back to the previous tab once content is copied). 
 
-`Follow the below instruction to copy & pastetemplate.yaml content`
+`Follow the below instruction to copy & paste template.yaml content`
 
 Navigate to the [template.yaml](/template.yaml) url and click on `copy raw content` as shown in below screenshot. 
 
@@ -76,7 +76,7 @@ Once the raw content is copied to the clipboard, this icon will turn into the gr
 
 ![Screenshot-2022-09-07-at-12.46.13-PM](../images/Screenshot-2022-09-07-at-12.46.13-PM.png)
 
-Now, navigate back to the Rancher portal and paste the copied content into the OPA Template editor.  
+Now, navigate back to the Rancher portal and paste the copied content into the OPA Template editor and click `Create`.  
 
 ![Screenshot-2022-09-05-at-9.25.25-PM](../images/Screenshot-2022-09-05-at-9.25.25-PM.png)
 
@@ -90,13 +90,13 @@ Now, navigate back to the Rancher portal and paste the copied content into the O
 
 This action will involve 6 steps from 1 to 6
 
-**Step 1)** A new **OPA Gatekeeper** menu will appear in left side static menu. Expand menu and click on `Constratint` submenu. Click on `Create` to proceed. 
+**Step 1)** Expand **OPA Gatekeeper** menu and click on `Constratints` submenu. Click on `Create` to proceed. 
 
 ![Screenshot-2022-07-24-at-6.29.03-PM](../images/Screenshot-2022-07-24-at-6.29.03-PM.png)
 
 
 
-**Step 2)** Select `k8spspallowedusers` from the screen. 
+**Step 2)** Click on  `k8spspallowedusers` template on the screen. 
 
 ![Screenshot-2022-09-05-at-9.29.17-PM](../images/Screenshot-2022-09-05-at-9.29.17-PM.png)
 
