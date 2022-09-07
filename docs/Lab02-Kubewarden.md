@@ -91,9 +91,7 @@ Now we have deployed Kubewarden stack with default policy server . Next step is 
 
 ## Task 2: Deploy a sample pod and check NET_RAW capabilities is inherited by default
 
-
-
-1. apply the sample pod manifest:
+Let us now create a sample pod without requesting any NET_RAW capability under security context configuration .  Create a manifest file named `bcisle15default.yaml` with below content and save it . 
 
 ```yaml
 apiVersion: apps/v1
@@ -121,7 +119,21 @@ spec:
         command: ['sh', '-c', 'echo Container 1 is Running ; sleep 3600']
 ```
 
-wait until the deployment completed.
+Or you can use import yaml option in rancher UI and copy paste above manifest file ,
+
+![](../images/pic13.png)
+
+wait until the deployment gets completed . You can verify the pod deployment by navigating through Workload - > Deployments . The bci-sle15 pods should be active as shown below , 
+
+
+
+![](../images/pic14.png)
+
+
+
+
+
+![](../images/pic15.png)
 
 then, execute shell into the pod
 
@@ -156,7 +168,7 @@ Kubernetes by default **connects** all the **containers running in the same node
 
 In order to avoid such ARP spoofing attack it is important , not to allow `NET_RAW` capability .  The Kubewarden Policy `psp-capabilities` controls Container Capabilities . In below example you can see `NET_RAW` capability under `required_drop_capabilities` section . These are capabilities which must be dropped from containers and are removed from the default set  . 
 
-Create a yaml file `clusteradmissionpolicy.yaml` with below content and save it . 
+Create a yaml file `clusteradmissionpolicy.yaml` with below content and execute the same in kubectl shell . 
 
 ```yaml
 apiVersion: policies.kubewarden.io/v1alpha2
@@ -182,7 +194,7 @@ spec:
     - NET_RAW
 ```
 
-Once deployed you should see an output similar to below screen-shot , 
+Once deployed you should see an output similar to below screen-shot under `policies.kubewarden.io -> AdmissionPolicies ,` 
 
 ![](../images/kubewarden-admission-policy-crd.png)
 
