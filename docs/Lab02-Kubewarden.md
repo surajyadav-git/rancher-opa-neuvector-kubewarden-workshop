@@ -211,7 +211,7 @@ You can see an output similar to below screenshot . You can see the `NET_RAW` ca
 
 
 
-**End of Lab02-Kubewarden** . Once you have completed the lab kindly remove drop-cap-net-raw policy under `More Resources -> policies.kubewarden.io -> AdmissionPolicies -> drop-cap-net-raw as below` , 
+**End of Lab02-Kubewarden** . Once you have completed the lab kindly remove drop-cap-net-raw policy under `More Resources -> policies.kubewarden.io -> AdmissionPolicies ` , 
 
 ![](../images/pic19.png)
 
