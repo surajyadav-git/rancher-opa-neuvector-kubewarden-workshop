@@ -1,6 +1,6 @@
 # Lab 1 - Open Policy Agent Gatekeeper
 
-This exercise is independent. We'll experience ease of installing Open Policy Agent (OPA) from Rancher cluster tools and quickly setup the constaint to allow run only non-root containers. 
+In this lab, we'll experience ease of installing Open Policy Agent (OPA) from Rancher cluster tools and quickly setup the constaint to restrict containers to runAs root. 
 
 ###### Usecase: Generally docker containers run with root privileges which is useful for the developers because of unrestricted container management e.g. installing packages, changing configurations, associating privileged ports etc. But running containers as root in QA and Production isn't a good security practice and can cause malicious process to gain non-federated access which in turn be catastrophic. Using OPA, we can create such policy which restrict cluster to run container as root user.     
 
@@ -64,9 +64,19 @@ This action will involve 4 steps from 1 to 4
 
 ![Screenshot-2022-09-05-at-9.18.34-PM](../images/Screenshot-2022-09-05-at-9.18.34-PM.png)
 
-**Step 3)** Specify template.yaml file content in the editor. Please refer below git link (Please open link in new tab)
+**Step 3)** Copy [template.yaml](/template.yaml) file content into the OPA Template editor (Please open link in new tab and make sure to navigate back to the previous tab once content is copied). 
 
-[OPA-User-Template](/template.yaml)
+`Follow the below instruction to copy & pastetemplate.yaml content`
+
+Navigate to the [template.yaml](/template.yaml) url and click on `copy raw content` as shown in below screenshot. 
+
+![Screenshot-2022-09-07-at-12.32.13-PM](../images/Screenshot-2022-09-07-at-12.32.13-PM.png)
+
+Once the raw content is copied to the clipboard, this icon will turn into the green tick mark as shown in below screenshot. 
+
+![Screenshot-2022-09-07-at-12.46.13-PM](../images/Screenshot-2022-09-07-at-12.46.13-PM.png)
+
+Now, navigate back to the Rancher portal and paste the copied content into the OPA Template editor.  
 
 ![Screenshot-2022-09-05-at-9.25.25-PM](../images/Screenshot-2022-09-05-at-9.25.25-PM.png)
 
@@ -140,13 +150,11 @@ This action will involve 5 steps from 1 to 5
 
 ![Screenshot-2022-09-06-at-7.18.20-AM](../images/Screenshot-2022-09-06-at-7.18.20-AM.png)
 
-
-
 **Step 2)** Deployment screen has 3 tabs `Deployment`, `Pod` and `Containers`. Fill in following details on the Deployment screen. 
 
-`Namespace : default`
+`Namespace` : `default`
 
-`Name : user's choice e.g. opa-allowed-users-nok`
+`Name` : user's choice e.g. `opa-allowed-users-nok`
 
 Now navigate to the `Containers` tab. 
 
@@ -158,7 +166,7 @@ Now navigate to the `Containers` tab.
 
 ![Screenshot-2022-09-06-at-7.19.55-AM](../images/Screenshot-2022-09-06-at-7.19.55-AM.png)
 
-**Step 4)** Now scroll down and stop at `Security Context` to ensure the default value of `Run as Non-Root` to `No` means container will run as root user. 
+**Step 4)** Now scroll down and stop at `Security Context` to ensure the default value of `Run as Non-Root` to `No`. It means container will run as root user. 
 
 ![Screenshot-2022-09-06-at-7.20.06-AM](../images/Screenshot-2022-09-06-at-7.20.06-AM.png)
 
@@ -190,7 +198,7 @@ Now navigate to the `Containers` tab.
 
 ![Screenshot-2022-09-06-at-7.26.15-AM](../images/Screenshot-2022-09-06-at-7.26.15-AM.png)
 
-**Step 3)** Now scroll down and stop at `Security Context` to change the default value of `Run as Non-Root` to `Yes` means container will run as non-root user. Also specify the value of field `Run as UserID`  to `101`. 
+**Step 3)** Now scroll down and stop at `Security Context` to change the default value of `Run as Non-Root` to `Yes`. It means container will run as non-root user. Also specify the value of field `Run as UserID`  to `101`. 
 
 ![Screenshot-2022-09-06-at-7.27.47-AM](../images/Screenshot-2022-09-06-at-7.27.47-AM.png)
 
