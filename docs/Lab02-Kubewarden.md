@@ -127,11 +127,7 @@ Or you can use import yaml option in rancher UI and copy paste above manifest fi
 
 wait until the deployment gets completed . You can verify the pod deployment by navigating through Workload - > Deployments . The bci-sle15 pods should be active as shown below , 
 
-
-
 ![](../images/pic14.png)
-
-
 
 Now execute shell into the bci-sle15  pod by clicking on three dots at corner .
 
@@ -188,15 +184,11 @@ Once deployed you should see an output similar to below screen-shot under `More 
 
 Now that the policy is enforced let us redeploy the sample pod with `NET_RAW` capability , which should be denied by drop-cap-net-raw policy .
 
-
-
 ## Task 4 : Redeploy the same sample pod and check NET_RAW capabilities is not available anymore in that pod.
 
 Now Redeploy the sample pod `bci-sle15` by clicking on the three dots on right corner of `bci-sle15` pod under `Workload - > Deployments` 
 
 ![](../images/pic18.png)
-
-
 
 Click on Execute shell into the redeployed pod and run below command to check the inherited linux capabilities:
 
@@ -208,8 +200,6 @@ capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs )
 You can see an output similar to below screenshot . You can see the `NET_RAW` capabilities is gone/dropped in the pod, because of the enforcement by the admission policy in Kubewarden)
 
 ![](../images/pic20.png)
-
-
 
 **End of Lab02-Kubewarden** . Once you have completed the lab kindly remove drop-cap-net-raw policy under `More Resources -> policies.kubewarden.io -> AdmissionPolicies ` , 
 
