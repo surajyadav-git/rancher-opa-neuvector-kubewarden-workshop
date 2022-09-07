@@ -79,11 +79,11 @@ Now the login page will be displayed and proceed to authenticate yourself by ent
 
 This lab consists of 3 exercises. 
 
-* ##### Exercise-01:[Admission Control - OPA](docs/Exercise-01A-OPASetup.md)
+* ##### Lab-01:[Open Policy Agent Gatekeeper](docs/Exercise-01A-OPASetup.md)
   
-* ##### Exercise-02:[Admission Control - Kubewarden](docs/Lab02-Kubewarden.md)
+* ##### Lab-02:[Kubewarden](docs/Lab02-Kubewarden.md)
   
-* ##### Exercise-03:[Admission Control - NeuVector](docs/Lab03-NeuVector-Admission-Control.md)
+* ##### Lab-03:[NeuVector - Admission Control](docs/Lab03-NeuVector-Admission-Control.md)
 
 
 
