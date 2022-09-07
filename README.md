@@ -84,3 +84,9 @@ This lab consists of 3 exercises.
 
 
 
+## References
+
+* [Rancher Documentation](https://rancher.com/docs/rancher/v2.6/en/)
+* [NeuVector - Full-lifecycle container security](https://open-docs.neuvector.com/)
+* [OPA Gatekeeper](https://open-policy-agent.github.io/gatekeeper/website/docs/)
+* [Kubewarden](https://docs.kubewarden.io/)

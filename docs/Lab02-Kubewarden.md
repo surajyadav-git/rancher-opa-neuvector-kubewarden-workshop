@@ -6,17 +6,21 @@ Kubewarden is a policy engine for Kubernetes. Its mission is to simplify the ado
 
 
 
-In this lab we will be performing following tasks , 
+In this lab we will be performing following tasks, 
 
-Task 1 : Install Kubewarden stack and deploy policy engine 
+Task 1 : Install Kubewarden
 
-Task 2 : Enforce Admission control policy 
+Task 2 : Deploy a sample pod and check NET_RAW capabilities is inherited by default
+
+Task 3 : Enforce Admission control policy to disallow NET_RAW capability for any pods in the default namespace
+
+Task 4 : Redeploy the same sample pod and check NET_RAW capabilities is not available anymore in that pod.
 
 
 
-## Task 1 : Install Kubewarden stack and deploy policy engine 
+## Task 1 : Install Kubewarden
 
-In this exercise we will add helm chart and install kubewarden . The Kubewarden stack is made of the following components:
+In this exercise we will add helm chart and install kubewarden. The Kubewarden stack is made of the following components:
 
 - An arbitrary number of `ClusterAdmissionPolicy` resources: this is how policies are defined inside Kubernetes
 - An arbitrary number of `PolicyServer` resources: this component represents a Deployment of a Kubewarden `PolicyServer`. The policies defined by the administrators are loaded and evaluated by the Kubewarden `PolicyServer`
@@ -28,7 +32,13 @@ In order to create Policies we will have to install kubewarden-crds , kubewarden
 
 Kubewarden chart depends on cert-manager . Since it is a dependency we will have to first install cert-manager . 
 
-To Install latest version of `cert-manager`, on Rancher server UI click on left most corner near Rancher logo ->Home -> rke2-cluster1 -> Kubectl icon  !
+To Install latest version of `cert-manager`, 
+
+1. Login to your Rancher Server instance with your given credential. 
+2. From the left-side menu, click the downstream cluster `rke2-cluster` to get into the **Cluster Explorer** page.
+3. At this **Cluster Explorer** page, at the top icon menu bar. click the "> _" icon to open the web-based terminal shell.
+
+
 
 ![](../images/pic1.png)
 
@@ -70,13 +80,12 @@ helm repo add kubewarden https://charts.kubewarden.io
 
 Kubewarden stack can be deployed from above helm chart . Copy paste below commands in kubectl shell ,
 
-```
+```bash
 helm install --wait -n kubewarden --create-namespace kubewarden-crds kubewarden/kubewarden-crds
 
 helm install --wait -n kubewarden kubewarden-controller kubewarden/kubewarden-controller
 
 helm install --wait -n kubewarden kubewarden-defaults kubewarden/kubewarden-defaults
-
 
 ```
 
@@ -86,45 +95,66 @@ Wait until you see an output similar to below screen-shot ,
 
 Now we have deployed Kubewarden stack . Next step is to deploy policy server .
 
-#### Step 3 ) Deploy Policy server 
 
-A Kubewarden `PolicyServer` is completely managed by the `kubewarden-controller`. Multiple `PolicyServers` can be deployed in the same Kubernetes cluster.
 
-The `PolicyServer` is the component which executes the Kubewarden policies when requests arrive and validates them. To deploy PolicyServer , on Rancher server UI click on left most corner near Rancher logo  -> Home -> rke2-cluster1 -> Kubectl icon . 
+## Task 2: Deploy a sample pod and check NET_RAW capabilities is inherited by default
 
-Create a yaml file `policyserver.yaml` with below content and save it . 
 
-```
-apiVersion: policies.kubewarden.io/v1alpha2
-kind: PolicyServer
+
+1. apply the sample pod manifest:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: reserved-instance-for-tenant-a
+  name: bci-sle15
+  labels:
+    app: sle15
 spec:
-  image: ghcr.io/kubewarden/policy-server:v1.1.2
-  replicas: 2
-  serviceAccountName: ~
-  env:
-  - name: KUBEWARDEN_LOG_LEVEL
-    value: debug
+  replicas: 1
+  strategy: 
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: sle15
+  template:
+    metadata:
+      labels:
+        app: sle15
+    spec:
+      containers:
+      - name: sle15
+        image: registry.suse.com/suse/sle15:latest
+        imagePullPolicy: IfNotPresent
+        command: ['sh', '-c', 'echo Container 1 is Running ; sleep 3600']
 ```
 
-Now deploy `policyserver.yaml` file using below command , 
+wait until the deployment completed.
 
+then, execute shell into the pod
+
+run this command to check the inherited linux capabilities:
+
+```bash
+zypper install -y libcap-progs
+capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
 ```
-kubectl apply -f policyserver.yaml
+
+expected output:
+
+```bash
+kubewarden-test1-75bc67757b-lkv9g:/ # capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
+0x00000000a80425fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap
+kubewarden-test1-75bc67757b-lkv9g:/ # 
 ```
 
-You should see an output similar to below screen-shot ,
 
-![](../images/pic5.png)
 
-Now we have successfully deployed Policy server . 
-
-**End of Task1 
+We oberved the CAP_NET_RAW linux capabiliteis exists even if the pod manfiest does not do anything requesting it in the security context configuration of its deployment.
 
 
 
-## Task 2 : Enforce Admission Control Policy 
+## Task 3 : Enforce Admission Control Policy to drop NET_RAW capabilities
 
 Once you have the Kubewarden instance running, it is time to deploy some policies to replace the `PodSecurityPolicy` object . The `ClusterAdmissionPolicy` resource is the core of the Kubewarden stack. This resource defines how policies evaluate requests.
 
@@ -136,219 +166,67 @@ In order to avoid such ARP spoofing attack it is important , not to allow `NET_R
 
 Create a yaml file `clusteradmissionpolicy.yaml` with below content and save it . 
 
-```
+```yaml
 apiVersion: policies.kubewarden.io/v1alpha2
-kind: ClusterAdmissionPolicy
+kind: AdmissionPolicy
 metadata:
-  name: psp-capabilities
+  name: drop-cap-net-raw
+  namespace: default
 spec:
-  policyServer: reserved-instance-for-tenant-a
+  policyServer: default
   module: registry://ghcr.io/kubewarden/policies/psp-capabilities:v0.1.7
   rules:
   - apiGroups: [""]
     apiVersions: ["v1"]
-    resources: ["pods"]
+    resources:
+    - pods
+    - deployments
     operations:
     - CREATE
     - UPDATE
   mutating: true
   settings:
-    allowed_capabilities:
-    - CHOWN
     required_drop_capabilities:
     - NET_RAW
-    - NET_ADMIN
 ```
 
 Once deployed you should see an output similar to below screen-shot , 
 
-![](../images/pic5-166212546820724.png)
+![](../images/kubewarden-admission-policy-crd.png)
 
-The following Pod would be rejected by the policy `psp-capabilities` : 
 
-```
-apiVersion: v1
-kind: Pod
-metadata:
-  name: hello
-spec:
-  containers:
-  - name: hello
-    image: busybox
-    command: [ "sh", "-c", "echo 'Hello!' && sleep 1h" ]
-    securityContext:
-      capabilities:
-        add:
-        - NET_RAW
-```
 
-Now let us go ahead and create our first policy . 
 
-#### Step 1 ) Example : Blocking pods running as root
 
-For this first example, we will use the  [user-group-psp policy](https://github.com/kubewarden/user-group-psp-policy)  .  Our goal will be to prevent the pods running as root on our Kubernetes cluster by enforcing this policy.  Let's define a `ClusterAdmissionPolicy` for that:
+## Task 4 : Redeploy the same sample pod and check NET_RAW capabilities is not available anymore in that pod.
 
-Deploy below ClusterAdmissionPolicy , by copy paste kubectl shell ,
 
-```
-kubectl apply -f - <<EOF
-apiVersion: policies.kubewarden.io/v1alpha2
-kind: ClusterAdmissionPolicy
-metadata:
-  name: psp-usergroup
-spec:
-  module: registry://ghcr.io/kubewarden/policies/user-group-psp:latest
-  rules:
-    - apiGroups:
-        - ""
-      apiVersions:
-        - v1
-      resources:
-        - pods
-      operations:
-        - CREATE
-        - UPDATE
-  mutating: true
-  settings:
-    run_as_user:
-      rule: MustRunAsNonRoot
-    supplemental_groups:
-      rule: MustRunAs
-      ranges:
-        - min: 1000
-          max: 65535
-EOF
 
+Redeploy the sample pod `kubewarden-test1`
+
+![image-20220907200313670](../images/kubewarden-redeploy-testpod.png)
+
+shell into the redeployed pod
+
+run this command to check the inherited linux capabilities:
+
+```bash
+zypper install -y libcap-progs
+capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
 ```
 
-Notice the policy is configured as `mutation: true`. This is required because the policy will add [supplementalGroups](https://kubernetes.io/docs/concepts/security/pod-security-policy/#users-and-groups) when the user does not define them.
+expected output (NET_RAW capabilities is gone/dropped in the pod, because of the enforcement by the admission policy in Kubewarden)
 
-This will produce the following output:
-
-![](../images/pic7.png)
-
-When a  `ClusterAdmissionPolicy` is defined, the status is set to `pending`, and it will force a rollout of the targeted `PolicyServer`. You can monitor the rollout by running the following command:
-
-```
-kubectl get clusteradmissionpolicy.policies.kubewarden.io/psp-usergroup
+```bash
+kubewarden-test1-5b76ccf5c4-mbjkz:/ # capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
+kubewarden-test1-5b76ccf5c4-mbjkz:/ # capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs )                                               
+0x00000000a80405fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap
+kubewarden-test1-5b76ccf5c4-mbjkz:/ # 
 ```
 
-![](../images/pic8.png)
-
-The `ClusterAdmissionPolicy` status will be set to active once the deployment is done for every `PolicyServer` instance. 
-
-You can test the policy now . Copy paste below section on kubectl shell . Users should not be able to deploy pods running as root:
-
-```
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx
-spec:
-  containers:
-  - name: nginx
-    image: nginx
-    securityContext:
-      runAsNonRoot: false
-      runAsUser: 0
-EOF
-
-```
-
-```
-Error from server: error when creating "STDIN": admission webhook "clusterwide-psp-usergroup-fb836.kubewarden.admission" denied the request: RunAsNonRoot should be set to true
-```
-
-You can see the Error states the pods cannot be deployed since the Kubewarden policy denied the request to run as root user . Let us see another example where the  parameter is set`runAsNonRoot: true`  but still denied  because the user ID is still pointing to root ie , UID 0 
-
-```
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx
-spec:
-  containers:
-  - name: nginx
-    image: nginx
-    securityContext:
-      runAsNonRoot: true
-      runAsUser: 0
-EOF
-```
-
-```
-Error from server: error when creating "STDIN": admission webhook "clusterwide-psp-usergroup-fb836.kubewarden.admission" denied the request: Invalid user ID: cannot run container with root ID (0)
-```
-
-------
-
-#### Step 2 ) Example : Allowing pod to use the port 443 only (Optional)
-
-To replace the PSP configuration that blocks privileged containers, it's necessary to deploy the [Host Namespaces PSP](https://github.com/kubewarden/host-namespaces-psp-policy). This policy does not require any settings. Once running, it will block users to use ports other than 443 and ports between 5000 - 6000 . 
 
 
 
-```
-kubectl apply -f - <<EOF
-apiVersion: policies.kubewarden.io/v1alpha2
-kind: ClusterAdmissionPolicy
-metadata:
-  name: psp-hostnamespaces
-spec:
-  module: registry://ghcr.io/kubewarden/policies/host-namespaces-psp:v0.1.2
-  rules:
-    - apiGroups:
-        - ""
-      apiVersions:
-        - v1
-      resources:
-        - pods
-      operations:
-        - CREATE
-        - UPDATE
-  mutating: false
-  settings:
-    allow_host_ipc: false
-    allow_host_pid: false
-    allow_host_ports:
-      - min: 5000
-        max: 6000
-      - min: 443
-        max: 443
-    allow_host_network: false
-EOF
-```
-
-Now the policy is created and enforced . The pod should be only able to expose the ports between 5000 and 6000 and port 443 . It should throw an  error when other port numbers are configured against the hostPort  section.
-
-```
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx
-spec:
-  containers:
-  - name: nginx
-    image: nginx
-    imagePullPolicy: IfNotPresent
-    ports:
-      - containerPort: 80
-        hostPort: 80
-  - name: sleeping-sidecar
-    image: alpine
-    command: ["sleep", "1h"]
-EOF
-
-```
-
-```
-Error from server: error when creating "STDIN": admission webhook "clusterwide-psp-hostnamespaces.kubewarden.admission" denied the request: Pod is using unallowed host ports in containers
-```
-
-Above example should work if 443 or a port range between 5000 to 6000 is used  . 
 
 Continue to: [Lab03-NeuVector-Admission Control](https://github.com/dsohk/rancher-opa-neuvector-kubewarden-workshop/blob/main/docs/Lab03-NeuVector-Admission-Control.md)
 
