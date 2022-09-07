@@ -83,17 +83,11 @@ helm install --wait -n kubewarden kubewarden-defaults kubewarden/kubewarden-defa
 
 Wait until you see an output similar to below screen-shot , 
 
-
-
 ![](../images/pic12.png)
 
 
 
-![](../images/pic4.png)
-
-Now we have deployed Kubewarden stack . Next step is to deploy policy server .
-
-
+Now we have deployed Kubewarden stack with default policy server . Next step is to deploy a sample pod if the `NET_RAW` capability is inherited by default  .
 
 ## Task 2: Deploy a sample pod and check NET_RAW capabilities is inherited by default
 
