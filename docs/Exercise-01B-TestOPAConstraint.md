@@ -80,7 +80,7 @@ Now navigate to the `Containers` tab.
 
 **Step 1B.11)** Execute command `id` in the shell and verify that `uid`, `gid`, and `groups` values are 101 as specified in the container. 
 
-![Screenshot-2022-09-06 at-7.34.09-AM](../images/Screenshot-2022-09-06 at-7.34.09-AM.png)
+![Screenshot-2022-09-06 at-7.34.09-AM](../images/Screenshot-2022-09-06-at-7.34.09-AM.png)
 
 Bingo! The OPA constraint is working as we were expecting. But wait... How much you are familiar with REGO language and how much effort it will require to create an OPA template if you are relatively newer in this space? Definitely, there are readymade templates available on git [gatekeepr-library](https://github.com/open-policy-agent/gatekeeper-library) which you may explore. However, there are good alternatives for advance policy control like `ARP Spoofing` etc. Let's conclude it here the and move on to the next exercise which will guide you more in-depth. 
 
