@@ -79,7 +79,7 @@ Now the login page will be displayed and proceed to authenticate yourself by ent
 
 This lab consists of 3 exercises. 
 
-* ##### Lab-01:[Open Policy Agent Gatekeeper](docs/Exercise-01A-OPASetup.md)
+* ##### Lab-01:[Open Policy Agent Gatekeeper](docs/Lab01A-OPAGatekeeper.md)
   
 * ##### Lab-02:[Kubewarden](docs/Lab02-Kubewarden.md)
   
