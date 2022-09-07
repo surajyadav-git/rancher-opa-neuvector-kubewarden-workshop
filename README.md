@@ -1,4 +1,4 @@
-# Securing Kubernetes with OPA, Kubewarden and NeuVector
+# Securing Kubernetes with OPA Gatekeeper, Kubewarden and NeuVector
 A technical hands-on workshop focus on Kubernetes admission controller.
 
 ## Pre-requisites
@@ -13,10 +13,7 @@ A technical hands-on workshop focus on Kubernetes admission controller.
 
 3. Watch previous demo on [Rancher private registry workshop](https://github.com/dsohk/rancher-private-registry-workshop/)   
 
-
-4. If you want to spin this lab with your own personal/corporate Microsoft Azure Cloud account, please follow below link:
-
-   [Automation](https://github.com/dsohk/workshops/tree/main/scenarios/azure/rancher-neuvector)  
+4. To spin this lab with your own personal/corporate Microsoft Azure Cloud account, please follow [Automation](https://github.com/dsohk/workshops/tree/main/scenarios/azure/rancher-neuvector)  link
 
 5. Optional - Access to [SUSE Partner Portal](https://myaccount.suse.com/)
 
@@ -79,7 +76,7 @@ Now the login page will be displayed and proceed to authenticate yourself by ent
 
 This lab consists of 3 exercises. 
 
-* ##### Lab-01:[Open Policy Agent Gatekeeper](docs/Lab01A-OPAGatekeeper.md)
+* ##### Lab-01:[Open Policy Agent Gatekeeper](docs/Lab01-OPAGatekeeper.md)
   
 * ##### Lab-02:[Kubewarden](docs/Lab02-Kubewarden.md)
   
