@@ -131,18 +131,32 @@ wait until the deployment gets completed . You can verify the pod deployment by 
 
 
 
+Now execute shell into the bci-sle15  pod by clicking on three dots at corner .
 
+![](../images/pic16.png)
 
-![](../images/pic15.png)
-
-then, execute shell into the pod
-
-run this command to check the inherited linux capabilities:
+run this command inside bci-sle15's shell to check the inherited linux capabilities:
 
 ```bash
 zypper install -y libcap-progs
 capsh --decode=$( cat /proc/$$/status | grep CapEff | cut -d : -f 2 | xargs ) | GREP_COLOR='01;31' grep --color=auto net_raw
 ```
+
+![](../images/pic17.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 expected output:
 
