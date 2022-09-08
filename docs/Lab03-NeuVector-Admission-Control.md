@@ -150,7 +150,7 @@ If you toggle back to NeuVector page
 
 NeuVector > Dashboard > Notification > Risk Reports > In the Search box on right hand top corner - Type 'Denied'  ![NGINX-with-CVE-restricted-by-NeuVector-Admission-control-pg1](../images/NGINX-with-CVE-restricted-by-NeuVector-Admission-control-pg1-1662397373557-22.png)
 
-We can clearly our risk report providing the details of Admission Control Denying the execution to create the deployment due to the NeuVector Policy. 
+We can clearly see risk report providing the details of Admission Control Denying the execution to create the deployment due to the NeuVector Policy. 
 
 So without any knowledge of programming language like Rego, Rust using NeuVector's intuitive UI, we have created a policy to restrict image with CVE not be execute in our cluster. 
 
