@@ -216,6 +216,13 @@ Bingo! The OPA constraint is working as we were expecting. But wait... How much 
 
 **End of Task 6**
 
+******
+Important!! Please delete the OPA Constraint after the Lab 1 
+Navigate to Constraint menu under OPA Gatekeeper. Select constraint `allowed-users-100-200` and click on Delete.
+Confirm the deletion. 
+Verify that constraint is deleted.
+******
+
 **End of LAB 1**
 
 Continue to: [Lab 2: Kubewarden](/docs/Lab02-Kubewarden.md)
