@@ -134,8 +134,6 @@ runAsUser:
 
 ![Screenshot-2022-09-05-at-9.34.05-PM](../images/Screenshot-2022-09-05-at-9.34.05-PM.png)
 
-**Step 6)** Verify that constraint is successfully created. Now proceed to validate if the defined constraint is working as expected i.e. deployment pulling container image from ACR will be successful while Harbor will be failed. 
-
 Now click on `Workload` option from the left hand static menu and select `Deployments` sub menu. 
 
 ![Screenshot-2022-09-05-at-9.37.38-PM](../images/Screenshot-2022-09-05-at-9.37.38-PM.png)
