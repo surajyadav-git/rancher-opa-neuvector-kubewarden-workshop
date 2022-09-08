@@ -92,7 +92,7 @@ NeuVector Dashboard > Policy > Admission Control.![admission-control-pg1](../ima
 
 Toggle the status bar to enable Admission Control. 
 
-Be default, you will be in Mode 'Monitor'.
+By default, you will be in Mode 'Monitor'.
 
 ![admission-control-pg1.1](../images/admission-control-pg1.1.png)
 
